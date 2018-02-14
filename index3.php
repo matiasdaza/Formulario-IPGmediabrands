@@ -150,6 +150,51 @@
                         ?>
                      </select>
                   </div>
+                  <!-- select -->
+                  <?php
+                     $con = new mysqli($servidor, $usuario, $password, $bd);
+                     $con->set_charset("utf8");
+                       global $con;
+                       $sql = "SELECT * FROM ad_unit_type;";
+                       $respuesta = $con -> query($sql);
+                       $filas = mysqli_num_rows($respuesta);
+                     ?>
+                  <div class="form-group">
+                     <label>Ad_unit_type</label>
+                     <select class="form-control">
+                     <?php
+                        if($filas > 0)
+                        {
+                          while($result = $respuesta -> fetch_assoc()) //fetch_assoc() = devuelve un arreglo asociativo con el row en el que se encuentre
+                          {
+                            echo "<option>", $result["AUT_NOMBRE"], "</option>";
+                          }
+                        }
+                        ?>
+                     </select>
+                  </div>
+                  <!-- checkbox -->
+                  <?php
+                     $con = new mysqli($servidor, $usuario, $password, $bd);
+                     $con->set_charset("utf8");
+                       global $con;
+                       $sql = "SELECT * FROM rate_type;";
+                       $respuesta = $con -> query($sql);
+                       $filas = mysqli_num_rows($respuesta);
+                     ?>
+                  <label>Plataforma</label>
+                  <div class="form-group">
+                     <?php
+                        if($filas > 0)
+                        {
+                          while($result = $respuesta -> fetch_assoc()) //fetch_assoc() = devuelve un arreglo asociativo con el row en el que se encuentre
+                          {
+                            echo "<div class='radio'><label><input type='radio' name='optionsRadios' id='optionsRadios1' value='option1' checked>", $result["RTY_NOMBRE"], "</label></div>";
+                          }
+                        }
+                        ?>
+                  </div>
+                </form>
       </section>
       <!-- /.content -->
       </div>
