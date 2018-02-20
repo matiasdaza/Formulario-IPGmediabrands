@@ -69,7 +69,7 @@
 				<!-- sidebar menu: : style can be found in sidebar.less -->
 				<ul class="sidebar-menu" data-widget="tree">
 					<li class="header">MAIN NAVIGATION</li>
-					<li class="active treeview">
+					<<li class="treeview">
 						<a href="#">
 						<i class="fa fa-dashboard"></i> <span>Dashboard</span>
 						<span class="pull-right-container">
@@ -79,8 +79,20 @@
 						<ul class="treeview-menu">
 							<li><a href="../index.html"><i class="fa fa-circle-o"></i> Dashboard v1</a></li>
 							<li><a href="../index2.html"><i class="fa fa-circle-o"></i> Dashboard v2</a></li>
+						</ul>
+					</li>
+					<li class="active treeview">
+						<a href="#">
+						<i class="fa fa-dashboard"></i> <span>Campañas</span>
+						<span class="pull-right-container">
+						<i class="fa fa-angle-left pull-right"></i>
+						</span>
+						</a>
+						<ul class="treeview-menu">
 							<li class="active"><a href="campanias.php"><i class="fa fa-circle-o"></i> Campañas</a></li>
 							<li><a href="facebook.php"><i class="fa fa-circle-o"></i> Dashboard Facebook</a></li>
+							<li><a href="conjuntoanuncios.php"><i class="fa fa-angle-right"></i>Conjunto de anuncios</a></li>
+							<li><a href="anuncios.php"><i class="fa fa-angle-right"></i>Anuncios</a></li>
 							<li><a href="index3.html"><i class="fa fa-circle-o"></i> Dashboard AdWords</a></li>
 							<li><a href="index3.html"><i class="fa fa-circle-o"></i> Dashboard OtrosMedios</a></li>
 						</ul>

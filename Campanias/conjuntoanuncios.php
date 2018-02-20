@@ -1,5 +1,3 @@
-
-
 <?php
 	include ('../conexion/conexion.php');
 	session_start();
@@ -77,8 +75,12 @@
 						</span>
 						</a>
 						<ul class="treeview-menu">
-							<li><a href="../index.html"><i class="fa fa-circle-o"></i> Dashboard v1</a></li>
-							<li><a href="../index2.html"><i class="fa fa-circle-o"></i> Dashboard v2</a></li>
+							<li class="active"><a href="campanias.php"><i class="fa fa-circle-o"></i> Campañas</a></li>
+							<li><a href="facebook.php"><i class="fa fa-circle-o"></i> Dashboard Facebook</a></li>
+							<li><a href="conjuntoanuncios.php"><i class="fa fa-angle-right"></i>Conjunto de anuncios</a></li>
+							<li><a href="anuncios.php"><i class="fa fa-angle-right"></i>Anuncios</a></li>
+							<li><a href="index3.html"><i class="fa fa-circle-o"></i> Dashboard AdWords</a></li>
+							<li><a href="index3.html"><i class="fa fa-circle-o"></i> Dashboard OtrosMedios</a></li>
 						</ul>
 					</li>
 					<li class="active treeview">
@@ -89,10 +91,10 @@
 						</span>
 						</a>
 						<ul class="treeview-menu">
-							<li class="active"><a href="campanias.php"><i class="fa fa-circle-o"></i> Campañas</a></li>
-							<li><a href="facebook.php"><i class="fa fa-circle-o"></i> Dashboard Facebook</a></li>
-							<li><a href="conjuntoanuncios.php"><i class="fa fa-angle-right"></i>Conjunto de anuncios</a></li>
-							<li><a href="anuncios.php"><i class="fa fa-angle-right"></i>Anuncios</a></li>
+							<li><a href="campanias.php"><i class="fa fa-circle-o"></i> Campañas</a></li>
+							<li ><a href="facebook.php"><i class="fa fa-circle-o"></i> Dashboard Facebook</a></li>
+							<li class="active"><a href="conjuntoanuncios.php"><i class="fa fa-circle-o"></i>Conjunto de anuncios</a></li>
+							<li><a href="anuncios.php"><i class="fa fa-circle-o"></i>Anuncios</a></li>
 							<li><a href="index3.html"><i class="fa fa-circle-o"></i> Dashboard AdWords</a></li>
 							<li><a href="index3.html"><i class="fa fa-circle-o"></i> Dashboard OtrosMedios</a></li>
 						</ul>
@@ -111,16 +113,16 @@
 			</h1>
 			<ol class="breadcrumb">
 				<li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-				<li class="active">Facebook</li>
+				<li class="active">Conjunto de anuncios</li>
 			</ol>
 		</section>
 		<!-- Main content -->
 		<section class="content">
-			<div class="box box-primary" style="padding-left: 2%;">
+      <div class="box box-primary">
 				<div class="box-header with-border">
-					<h3 class="box-title">Facebook</h3>
+					<h3 class="box-title">Conjunto de anuncios</h3>
 				</div>
-				<!-- /.box-header -->
+        <!-- /.box-header -->
 				<?php
 					 $con = new mysqli($servidor, $usuario, $password, $bd);
 					 $con->set_charset("utf8");
@@ -130,7 +132,7 @@
 						 $filas = mysqli_num_rows($respuesta);
 					 ?>
 				<div class="box-body">
-					<form role="form" action="Addfacebook.php" method="POST">
+					<form role="form" action="Addcanuncio.php" method="POST">
 						  <div class="form-group">
                  <label>Seleccionar campaña  (Si la campaña no está creada, crearla en la pestaña "Campaña")</label>
                  <select class="form-control" name="idcampania">
@@ -139,116 +141,121 @@
                     {
                       while($result = $respuesta -> fetch_assoc()) //fetch_assoc() = devuelve un arreglo asociativo con el row en el que se encuentre
                       {
-												echo "<option value=".$result['CAMP_ID'].">".$result["CAMP_NOMBRE"],"</option>";
+                        echo "<option value=".$result['CAMP_ID'].">".$result["CAMP_NOMBRE"],"</option>";
                       }
                     }
                     ?>
                  </select>
               </div>
 						</div>
-            <!-- Plataforma -->
+            <!-- Rate_type -->
             <?php
                $con = new mysqli($servidor, $usuario, $password, $bd);
                $con->set_charset("utf8");
                  global $con;
-                 $sql = "SELECT * FROM tipo_plataforma;";
+                 $sql = "SELECT * FROM rate_type;";
                  $respuesta = $con -> query($sql);
                  $filas = mysqli_num_rows($respuesta);
                ?>
-            <label>Plataforma</label>
+            <label>Rate_type</label>
             <div class="form-group">
                <?php
                   if($filas > 0)
                   {
                     while($result = $respuesta -> fetch_assoc()) //fetch_assoc() = devuelve un arreglo asociativo con el row en el que se encuentre
                     {
-                      echo "<div class='radio'><label><input type='radio' name='idplataforma' value=' ". $result['TPL_ID']. " ' >", $result["TPL_NOMBRE"], "</label></div>";
+                      echo "<div class='radio'><label><input type='radio' name='rate_type' value='".$result['RTY_ID']."' checked>", $result["RTY_NOMBRE"], "</label></div>";
                     }
                   }
                   ?>
             </div>
-            <!-- Menú Marca -->
-            <?php
-               $con = new mysqli($servidor, $usuario, $password, $bd);
-               $con->set_charset("utf8");
-                 global $con;
-                 $sql = "SELECT * FROM tipo_marca;";
-                 $respuesta = $con -> query($sql);
-                 $filas = mysqli_num_rows($respuesta);
-               ?>
+
+            <!-- Inicio_conjunto_anuncio -->
             <div class="form-group">
-               <label>Marca</label>
-               <select class="form-control" name="idmarca">
-               <?php
-                  if($filas > 0)
-                  {
-                    while($result = $respuesta -> fetch_assoc()) //fetch_assoc() = devuelve un arreglo asociativo con el row en el que se encuentre
-                    {
-                      echo "<option value=".$result['TMA_ID'].">".$result["TMA_NOMBRE"],"</option>";
-                    }
-                  }
-                  ?>
-               </select>
+              <label>Inicio_conjunto_anuncio:</label>
+              <input type="date" name="Inicio_conjunto_anuncio">
+              <!-- /.input group -->
             </div>
-            <!-- Menú objetvio -->
+            <!-- Fin_conjunto_anuncio -->
+            <div class="form-group">
+              <label>Fin_conjunto_anuncio:</label>
+							<input type="date" name="Fin_conjunto_anuncio">
+              <!-- /.input group -->
+            </div>
+
+						<!-- Género -->
 						<?php
-               $con = new mysqli($servidor, $usuario, $password, $bd);
-               $con->set_charset("utf8");
-                 global $con;
-                 $sql = "SELECT * FROM tipo_objetivo;";
-                 $respuesta = $con -> query($sql);
-                 $filas = mysqli_num_rows($respuesta);
-            ?>
+							 $con = new mysqli($servidor, $usuario, $password, $bd);
+							 $con->set_charset("utf8");
+								 global $con;
+								 $sql = "SELECT * FROM GENERO;";
+								 $respuesta = $con -> query($sql);
+								 $filas = mysqli_num_rows($respuesta);
+							 ?>
+						<label>Género</label>
+						<div class="form-group">
+							 <?php
+									if($filas > 0)
+									{
+										while($result = $respuesta -> fetch_assoc()) //fetch_assoc() = devuelve un arreglo asociativo con el row en el que se encuentre
+										{
+											echo "<div class='radio'><label><input type='radio' name='genero' value='".$result['GEN_ID']."' checked>", $result["GEN_NOMBRE"], "</label></div>";
+										}
+									}
+									?>
+						</div>
+						<!-- Rango de edad -->
             <div class="form-group">
-               <label>Objetivo</label>
-               <select class="form-control" name='idobjetivo'>
-               <?php
-                  if($filas > 0)
-                  {
-                    while($result = $respuesta -> fetch_assoc()) //fetch_assoc() = devuelve un arreglo asociativo con el row en el que se encuentre
-                    {
-
-											echo "<option value=".$result['TOB_ID'].">".$result["TOB_NOMBRE"],"</option>";
-
-                    }
-                  }
-                  ?>
-               </select>
+              <label>Seleccione el rago de edad: (13-65) </label>
+							<br><br>
+							<label>Min: </label><input type="number" name="edadmin" min="13" max="65" step="1">
+							<label>Máx: </label><input type="number" name="edadmax" min="13" max="65" step="1">
+              <!-- /.input group -->
             </div>
-            <!-- Tipo_compra -->
+
+						<!-- Segmentación -->
+            <div class="form-group">
+              <label>Segmentación: </label><br><br>
+							<textarea rows="4" cols="50" name="segmentacion"></textarea>
+            </div>
+						<!-- Rango de edad -->
+            <div class="form-group">
+              <label>Frecuencia</label>
+							<br>
+							<p>Frecuencia de anuncios: (0-9)&nbsp;<input type="number" name="frec" min="0" max="9" step="1"></p>
+							<p>Frecuencia de días: (0-7)&nbsp;<input type="number" name="frecdias" min="0" max="7" step="1"></p>
+              <!-- /.input group -->
+            </div>
+						<!-- Dispositivo -->
             <?php
                $con = new mysqli($servidor, $usuario, $password, $bd);
                $con->set_charset("utf8");
                  global $con;
-                 $sql = "SELECT * FROM tipo_compra;";
+                 $sql = "SELECT * FROM rate_type;";
                  $respuesta = $con -> query($sql);
                  $filas = mysqli_num_rows($respuesta);
-            ?>
-            <label>Tipo Compra</label>
+               ?>
+            <label>Dispositivo</label>
             <div class="form-group">
                <?php
                   if($filas > 0)
                   {
                     while($result = $respuesta -> fetch_assoc()) //fetch_assoc() = devuelve un arreglo asociativo con el row en el que se encuentre
                     {
-                      echo "<div class='radio'><label><input type='radio' name='idtcompra'  value=' ". $result['TCO_ID']. " ' >", $result["TCO_NOMBRE"], "</label></div>";
+                      echo "<div class='radio'><label><input type='radio' name='dispositivo' value='".$result['RTY_ID']."' checked>", $result["RTY_NOMBRE"], "</label></div>";
                     }
                   }
                   ?>
             </div>
-
-            <!-- Orden -->
-            <label>Ingrese número de orden (Si son más de una, separelas por ",")</label>
-            <input type="text" class="form-control" name='odenes' placeholder="Número de orden">
-
+            <br>
 						<div class="box-body">
 							<div class="col-xs-4">
 								<button type="submit" name="enviar" class="btn btn-primary btn-block btn-flat" value="1">Guardar</button>
 							</div>
 						</div>
-					</form>
-				</div>
-			</div>
+					</div>
+
+			</form>
 		</section>
 		<!-- /.content -->
 		</div>

@@ -89,10 +89,10 @@
 						</span>
 						</a>
 						<ul class="treeview-menu">
-							<li class="active"><a href="campanias.php"><i class="fa fa-circle-o"></i> Campañas</a></li>
-							<li><a href="facebook.php"><i class="fa fa-circle-o"></i> Dashboard Facebook</a></li>
-							<li><a href="conjuntoanuncios.php"><i class="fa fa-angle-right"></i>Conjunto de anuncios</a></li>
-							<li><a href="anuncios.php"><i class="fa fa-angle-right"></i>Anuncios</a></li>
+							<li><a href="campanias.php"><i class="fa fa-circle-o"></i> Campañas</a></li>
+							<li class="active"><a href="facebook.php"><i class="fa fa-circle-o"></i> Dashboard Facebook</a></li>
+							<li><a href="conjuntoanuncios.php"><i class="fa fa-circle-o"></i>Conjunto de anuncios</a></li>
+							<li><a href="anuncios.php"><i class="fa fa-circle-o"></i>Anuncios</a></li>
 							<li><a href="index3.html"><i class="fa fa-circle-o"></i> Dashboard AdWords</a></li>
 							<li><a href="index3.html"><i class="fa fa-circle-o"></i> Dashboard OtrosMedios</a></li>
 						</ul>
@@ -116,139 +116,97 @@
 		</section>
 		<!-- Main content -->
 		<section class="content">
-			<div class="box box-primary" style="padding-left: 2%;">
-				<div class="box-header with-border">
-					<h3 class="box-title">Facebook</h3>
-				</div>
-				<!-- /.box-header -->
-				<?php
-					 $con = new mysqli($servidor, $usuario, $password, $bd);
-					 $con->set_charset("utf8");
-						 global $con;
-						 $sql = "SELECT * FROM campania;";
-						 $respuesta = $con -> query($sql);
-						 $filas = mysqli_num_rows($respuesta);
-					 ?>
-				<div class="box-body">
-					<form role="form" action="Addfacebook.php" method="POST">
-						  <div class="form-group">
-                 <label>Seleccionar campaña  (Si la campaña no está creada, crearla en la pestaña "Campaña")</label>
-                 <select class="form-control" name="idcampania">
-                 <?php
-                    if($filas > 0)
-                    {
-                      while($result = $respuesta -> fetch_assoc()) //fetch_assoc() = devuelve un arreglo asociativo con el row en el que se encuentre
-                      {
-												echo "<option value=".$result['CAMP_ID'].">".$result["CAMP_NOMBRE"],"</option>";
-                      }
-                    }
-                    ?>
-                 </select>
-              </div>
-						</div>
-            <!-- Plataforma -->
-            <?php
-               $con = new mysqli($servidor, $usuario, $password, $bd);
-               $con->set_charset("utf8");
-                 global $con;
-                 $sql = "SELECT * FROM tipo_plataforma;";
-                 $respuesta = $con -> query($sql);
-                 $filas = mysqli_num_rows($respuesta);
-               ?>
-            <label>Plataforma</label>
-            <div class="form-group">
-               <?php
-                  if($filas > 0)
-                  {
-                    while($result = $respuesta -> fetch_assoc()) //fetch_assoc() = devuelve un arreglo asociativo con el row en el que se encuentre
-                    {
-                      echo "<div class='radio'><label><input type='radio' name='idplataforma' value=' ". $result['TPL_ID']. " ' >", $result["TPL_NOMBRE"], "</label></div>";
-                    }
-                  }
-                  ?>
-            </div>
-            <!-- Menú Marca -->
-            <?php
-               $con = new mysqli($servidor, $usuario, $password, $bd);
-               $con->set_charset("utf8");
-                 global $con;
-                 $sql = "SELECT * FROM tipo_marca;";
-                 $respuesta = $con -> query($sql);
-                 $filas = mysqli_num_rows($respuesta);
-               ?>
-            <div class="form-group">
-               <label>Marca</label>
-               <select class="form-control" name="idmarca">
-               <?php
-                  if($filas > 0)
-                  {
-                    while($result = $respuesta -> fetch_assoc()) //fetch_assoc() = devuelve un arreglo asociativo con el row en el que se encuentre
-                    {
-                      echo "<option value=".$result['TMA_ID'].">".$result["TMA_NOMBRE"],"</option>";
-                    }
-                  }
-                  ?>
-               </select>
-            </div>
-            <!-- Menú objetvio -->
-						<?php
-               $con = new mysqli($servidor, $usuario, $password, $bd);
-               $con->set_charset("utf8");
-                 global $con;
-                 $sql = "SELECT * FROM tipo_objetivo;";
-                 $respuesta = $con -> query($sql);
-                 $filas = mysqli_num_rows($respuesta);
-            ?>
-            <div class="form-group">
-               <label>Objetivo</label>
-               <select class="form-control" name='idobjetivo'>
-               <?php
-                  if($filas > 0)
-                  {
-                    while($result = $respuesta -> fetch_assoc()) //fetch_assoc() = devuelve un arreglo asociativo con el row en el que se encuentre
-                    {
+      <div class="box box-primary">
+        <div class="box-header with-border">
+          <h3 class="box-title">Anuncios</h3>
+        </div>
 
-											echo "<option value=".$result['TOB_ID'].">".$result["TOB_NOMBRE"],"</option>";
+        <!-- Formato tema -->
+        <?php
+           $con = new mysqli($servidor, $usuario, $password, $bd);
+           $con->set_charset("utf8");
+             global $con;
+             $sql = "SELECT * FROM tipo_formato;";
+             $respuesta = $con -> query($sql);
+             $filas = mysqli_num_rows($respuesta);
+           ?>
+        <label>Formato tema</label>
+        <div class="form-group">
+           <?php
+              if($filas > 0)
+              {
+                while($result = $respuesta -> fetch_assoc()) //fetch_assoc() = devuelve un arreglo asociativo con el row en el que se encuentre
+                {
+                  echo "<div class='radio'><label><input type='radio' name='optionsRadios' id='optionsRadios1' value='option1' checked>", $result["TFO_NOMBRE"], "</label></div>";
+                }
+              }
+              ?>
+        </div>
 
-                    }
-                  }
-                  ?>
-               </select>
-            </div>
-            <!-- Tipo_compra -->
-            <?php
-               $con = new mysqli($servidor, $usuario, $password, $bd);
-               $con->set_charset("utf8");
-                 global $con;
-                 $sql = "SELECT * FROM tipo_compra;";
-                 $respuesta = $con -> query($sql);
-                 $filas = mysqli_num_rows($respuesta);
-            ?>
-            <label>Tipo Compra</label>
-            <div class="form-group">
-               <?php
-                  if($filas > 0)
-                  {
-                    while($result = $respuesta -> fetch_assoc()) //fetch_assoc() = devuelve un arreglo asociativo con el row en el que se encuentre
-                    {
-                      echo "<div class='radio'><label><input type='radio' name='idtcompra'  value=' ". $result['TCO_ID']. " ' >", $result["TCO_NOMBRE"], "</label></div>";
-                    }
-                  }
-                  ?>
-            </div>
-
-            <!-- Orden -->
-            <label>Ingrese número de orden (Si son más de una, separelas por ",")</label>
-            <input type="text" class="form-control" name='odenes' placeholder="Número de orden">
-
-						<div class="box-body">
-							<div class="col-xs-4">
-								<button type="submit" name="enviar" class="btn btn-primary btn-block btn-flat" value="1">Guardar</button>
-							</div>
-						</div>
-					</form>
-				</div>
-			</div>
+        <!-- Ad_unit_type -->
+        <?php
+           $con = new mysqli($servidor, $usuario, $password, $bd);
+           $con->set_charset("utf8");
+             global $con;
+             $sql = "SELECT * FROM ad_unit_type;";
+             $respuesta = $con -> query($sql);
+             $filas = mysqli_num_rows($respuesta);
+           ?>
+        <div class="form-group">
+           <label>Ad_unit_type</label>
+           <select class="form-control">
+           <?php
+              if($filas > 0)
+              {
+                while($result = $respuesta -> fetch_assoc()) //fetch_assoc() = devuelve un arreglo asociativo con el row en el que se encuentre
+                {
+                  echo "<option>", $result["AUT_NOMBRE"], "</option>";
+                }
+              }
+              ?>
+           </select>
+        </div>
+        <!-- Video_length -->
+        <?php
+           $con = new mysqli($servidor, $usuario, $password, $bd);
+           $con->set_charset("utf8");
+             global $con;
+             $sql = "SELECT * FROM video_length;";
+             $respuesta = $con -> query($sql);
+             $filas = mysqli_num_rows($respuesta);
+           ?>
+        <div class="form-group">
+           <label>Video_length</label>
+           <select class="form-control">
+           <?php
+              if($filas > 0)
+              {
+                while($result = $respuesta -> fetch_assoc()) //fetch_assoc() = devuelve un arreglo asociativo con el row en el que se encuentre
+                {
+                  echo "<option>", $result["VLE_NOMBRE"], "</option>";
+                }
+              }
+              ?>
+           </select>
+        </div>
+        <!-- Inicio_anuncio -->
+        <div class="form-group">
+          <label>Inicio_anuncio:</label>
+          <input type="date" name="Inicio_anuncio">
+          <!-- /.input group -->
+        </div>
+        <!-- Fin_anuncio -->
+        <div class="form-group">
+          <label>Fin_anuncio:</label>
+          <input type="date" name="Fin_anuncio">
+          <!-- /.input group -->
+        </div>
+        <div class="box-body">
+          <div class="col-xs-4">
+            <button type="submit" name="enviar" class="btn btn-primary btn-block btn-flat" value="1">Guardar</button>
+          </div>
+        </div>
+      </form>
 		</section>
 		<!-- /.content -->
 		</div>
