@@ -91,7 +91,7 @@
 							<li><a href="facebook.php"><i class="fa fa-circle-o"></i> Dashboard Facebook</a></li>
 							<li class="active"><a href="conjuntoanuncios.php"><i class="fa fa-angle-right"></i>Conjunto de anuncios</a></li>
 							<li><a href="anuncios.php"><i class="fa fa-angle-right"></i>Anuncios</a></li>
-							<li><a href="index3.html"><i class="fa fa-circle-o"></i> Dashboard AdWords</a></li>
+							<li><a href="adwords.php"><i class="fa fa-circle-o"></i> Dashboard AdWords</a></li>
 							<li><a href="index3.html"><i class="fa fa-circle-o"></i> Dashboard OtrosMedios</a></li>
 						</ul>
 					</li>

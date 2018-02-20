@@ -90,10 +90,10 @@
 						</a>
 						<ul class="treeview-menu">
 							<li><a href="campanias.php"><i class="fa fa-circle-o"></i> Campañas</a></li>
-							<li class="active"><a href="facebook.php"><i class="fa fa-circle-o"></i> Dashboard Facebook</a></li>
-							<li><a href="conjuntoanuncios.php"><i class="fa fa-circle-o"></i>Conjunto de anuncios</a></li>
-							<li><a href="anuncios.php"><i class="fa fa-circle-o"></i>Anuncios</a></li>
-							<li><a href="index3.html"><i class="fa fa-circle-o"></i> Dashboard AdWords</a></li>
+							<li><a href="facebook.php"><i class="fa fa-circle-o"></i> Dashboard Facebook</a></li>
+							<li><a href="conjuntoanuncios.php"><i class="fa fa-angle-right"></i>Conjunto de anuncios</a></li>
+							<li class="active"><a href="anuncios.php"><i class="fa fa-angle-right"></i>Anuncios</a></li>
+							<li><a href="adwords.php"><i class="fa fa-circle-o"></i> Dashboard AdWords</a></li>
 							<li><a href="index3.html"><i class="fa fa-circle-o"></i> Dashboard OtrosMedios</a></li>
 						</ul>
 					</li>
@@ -111,15 +111,55 @@
 			</h1>
 			<ol class="breadcrumb">
 				<li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-				<li class="active">Facebook</li>
+				<li class="active">Anuncios</li>
 			</ol>
 		</section>
+		<?php
+			if(isset($_GET["mensaje"])) {
+				$mesaje = $_GET["mensaje"];
+				echo"<br><div class='box-body'>
+					<div class='alert alert-success alert-dismissible'>
+						<button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button>
+						<h4><i class='icon fa fa-check'></i> Se ha generado correctamente con el nombre: </h4>
+						".$mesaje."
+					</div>
+				</div>
+				<!-- /.box-body -->";
+			}
+		?>
 		<!-- Main content -->
 		<section class="content">
       <div class="box box-primary">
         <div class="box-header with-border">
           <h3 class="box-title">Anuncios</h3>
         </div>
+
+				<!-- /.box-header -->
+				<?php
+					 $con = new mysqli($servidor, $usuario, $password, $bd);
+					 $con->set_charset("utf8");
+						 global $con;
+						 $sql = "SELECT * FROM Facebook;";
+						 $respuesta = $con -> query($sql);
+						 $filas = mysqli_num_rows($respuesta);
+					 ?>
+				<div class="box-body">
+					<form role="form" action="Addanuncio.php" method="POST">
+						  <div class="form-group">
+                 <label>Seleccionar campaña  (Si la campaña no está creada, crearla en la pestaña "Campaña")</label>
+                 <select class="form-control" name="idcampania">
+                 <?php
+                    if($filas > 0)
+                    {
+                      while($result = $respuesta -> fetch_assoc()) //fetch_assoc() = devuelve un arreglo asociativo con el row en el que se encuentre
+                      {
+                        echo "<option value=".$result['FB_ID'].">".$result["FB_NOMBRECAMPANIA"],"</option>";
+                      }
+                    }
+                    ?>
+                 </select>
+              </div>
+						</div>
 
         <!-- Formato tema -->
         <?php
@@ -137,7 +177,7 @@
               {
                 while($result = $respuesta -> fetch_assoc()) //fetch_assoc() = devuelve un arreglo asociativo con el row en el que se encuentre
                 {
-                  echo "<div class='radio'><label><input type='radio' name='optionsRadios' id='optionsRadios1' value='option1' checked>", $result["TFO_NOMBRE"], "</label></div>";
+                  echo "<div class='radio'><label><input type='radio' name='formatotema' value='".$result["TFO_ID"]."' checked>", $result["TFO_NOMBRE"], "</label></div>";
                 }
               }
               ?>
@@ -154,13 +194,13 @@
            ?>
         <div class="form-group">
            <label>Ad_unit_type</label>
-           <select class="form-control">
+           <select class="form-control" name="Ad_unit_type">
            <?php
               if($filas > 0)
               {
                 while($result = $respuesta -> fetch_assoc()) //fetch_assoc() = devuelve un arreglo asociativo con el row en el que se encuentre
                 {
-                  echo "<option>", $result["AUT_NOMBRE"], "</option>";
+                  echo "<option value=".$result['AUT_ID'].">", $result["AUT_NOMBRE"], "</option>";
                 }
               }
               ?>
@@ -177,13 +217,13 @@
            ?>
         <div class="form-group">
            <label>Video_length</label>
-           <select class="form-control">
+           <select class="form-control" name="video_length">
            <?php
               if($filas > 0)
               {
                 while($result = $respuesta -> fetch_assoc()) //fetch_assoc() = devuelve un arreglo asociativo con el row en el que se encuentre
                 {
-                  echo "<option>", $result["VLE_NOMBRE"], "</option>";
+                  echo "<option value=".$result['VLE_ID'].">", $result["VLE_NOMBRE"], "</option>";
                 }
               }
               ?>
