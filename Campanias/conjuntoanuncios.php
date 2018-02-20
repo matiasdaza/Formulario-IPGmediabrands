@@ -1,7 +1,7 @@
 <?php
 	include ('../conexion/conexion.php');
 	session_start();
-	?>
+?>
 <!DOCTYPE html>
 <html>
 	<head>
@@ -75,12 +75,8 @@
 						</span>
 						</a>
 						<ul class="treeview-menu">
-							<li class="active"><a href="campanias.php"><i class="fa fa-circle-o"></i> Campañas</a></li>
-							<li><a href="facebook.php"><i class="fa fa-circle-o"></i> Dashboard Facebook</a></li>
-							<li><a href="conjuntoanuncios.php"><i class="fa fa-angle-right"></i>Conjunto de anuncios</a></li>
-							<li><a href="anuncios.php"><i class="fa fa-angle-right"></i>Anuncios</a></li>
-							<li><a href="index3.html"><i class="fa fa-circle-o"></i> Dashboard AdWords</a></li>
-							<li><a href="index3.html"><i class="fa fa-circle-o"></i> Dashboard OtrosMedios</a></li>
+							<li><a href="../index.html"><i class="fa fa-circle-o"></i> Dashboard v1</a></li>
+							<li><a href="../index2.html"><i class="fa fa-circle-o"></i> Dashboard v2</a></li>
 						</ul>
 					</li>
 					<li class="active treeview">
@@ -92,9 +88,9 @@
 						</a>
 						<ul class="treeview-menu">
 							<li><a href="campanias.php"><i class="fa fa-circle-o"></i> Campañas</a></li>
-							<li ><a href="facebook.php"><i class="fa fa-circle-o"></i> Dashboard Facebook</a></li>
-							<li class="active"><a href="conjuntoanuncios.php"><i class="fa fa-circle-o"></i>Conjunto de anuncios</a></li>
-							<li><a href="anuncios.php"><i class="fa fa-circle-o"></i>Anuncios</a></li>
+							<li><a href="facebook.php"><i class="fa fa-circle-o"></i> Dashboard Facebook</a></li>
+							<li class="active"><a href="conjuntoanuncios.php"><i class="fa fa-angle-right"></i>Conjunto de anuncios</a></li>
+							<li><a href="anuncios.php"><i class="fa fa-angle-right"></i>Anuncios</a></li>
 							<li><a href="index3.html"><i class="fa fa-circle-o"></i> Dashboard AdWords</a></li>
 							<li><a href="index3.html"><i class="fa fa-circle-o"></i> Dashboard OtrosMedios</a></li>
 						</ul>
@@ -116,6 +112,19 @@
 				<li class="active">Conjunto de anuncios</li>
 			</ol>
 		</section>
+		<?php
+			if(isset($_GET["mensaje"])) {
+				$mesaje = $_GET["mensaje"];
+				echo"<br><div class='box-body'>
+					<div class='alert alert-success alert-dismissible'>
+						<button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button>
+						<h4><i class='icon fa fa-check'></i> Se ha generado correctamente con el nombre: </h4>
+						".$mesaje."
+					</div>
+				</div>
+				<!-- /.box-body -->";
+			}
+		?>
 		<!-- Main content -->
 		<section class="content">
       <div class="box box-primary">
@@ -127,7 +136,7 @@
 					 $con = new mysqli($servidor, $usuario, $password, $bd);
 					 $con->set_charset("utf8");
 						 global $con;
-						 $sql = "SELECT * FROM campania;";
+						 $sql = "SELECT * FROM Facebook;";
 						 $respuesta = $con -> query($sql);
 						 $filas = mysqli_num_rows($respuesta);
 					 ?>
@@ -141,7 +150,7 @@
                     {
                       while($result = $respuesta -> fetch_assoc()) //fetch_assoc() = devuelve un arreglo asociativo con el row en el que se encuentre
                       {
-                        echo "<option value=".$result['CAMP_ID'].">".$result["CAMP_NOMBRE"],"</option>";
+                        echo "<option value=".$result['FB_ID'].">".$result["FB_NOMBRECAMPANIA"],"</option>";
                       }
                     }
                     ?>
@@ -231,7 +240,7 @@
                $con = new mysqli($servidor, $usuario, $password, $bd);
                $con->set_charset("utf8");
                  global $con;
-                 $sql = "SELECT * FROM rate_type;";
+                 $sql = "SELECT * FROM Dispositivo;";
                  $respuesta = $con -> query($sql);
                  $filas = mysqli_num_rows($respuesta);
                ?>
@@ -242,7 +251,7 @@
                   {
                     while($result = $respuesta -> fetch_assoc()) //fetch_assoc() = devuelve un arreglo asociativo con el row en el que se encuentre
                     {
-                      echo "<div class='radio'><label><input type='radio' name='dispositivo' value='".$result['RTY_ID']."' checked>", $result["RTY_NOMBRE"], "</label></div>";
+                      echo "<div class='radio'><label><input type='radio' name='dispositivo' value='".$result['DIS_ID']."' checked>", $result["DIS_NOMBRE"], "</label></div>";
                     }
                   }
                   ?>
