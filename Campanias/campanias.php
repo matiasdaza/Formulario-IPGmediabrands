@@ -89,12 +89,25 @@
 						</span>
 						</a>
 						<ul class="treeview-menu">
-							<li class="active"><a href="campanias.php"><i class="fa fa-circle-o"></i> Campañas</a></li>
+							<li  class="active"><a href="campanias.php"><i class="fa fa-circle-o"></i> Campañas</a></li>
 							<li><a href="facebook.php"><i class="fa fa-circle-o"></i> Dashboard Facebook</a></li>
 							<li><a href="conjuntoanuncios.php"><i class="fa fa-angle-right"></i>Conjunto de anuncios</a></li>
 							<li><a href="anuncios.php"><i class="fa fa-angle-right"></i>Anuncios</a></li>
 							<li><a href="adwords.php"><i class="fa fa-circle-o"></i> Dashboard AdWords</a></li>
+							<li><a href="AWanuncios.php"><i class="fa fa-angle-right"></i>Anuncios</a></li>
 							<li><a href="index3.html"><i class="fa fa-circle-o"></i> Dashboard OtrosMedios</a></li>
+						</ul>
+					</li>
+					<li class="treeview">
+						<a href="#">
+						<i class="fa fa-dashboard"></i> <span>Admin</span>
+						<span class="pull-right-container">
+						<i class="fa fa-angle-left pull-right"></i>
+						</span>
+						</a>
+						<ul class="treeview-menu">
+							<li><a href="AdminFacebook.php"><i class="fa fa-circle-o"></i> Dashboard Facebook</a></li>
+							<li><a href="AdminAdWords.php"><i class="fa fa-circle-o"></i> Dashboard AdWords</a></li>
 						</ul>
 					</li>
 				</ul>
@@ -131,13 +144,18 @@
 								<!-- Date -->
 								<div class="form-group">
 									<label>Fecha de inicio:</label>
-									<input type="date" name="FechaInicio">
+									<?php
+									$fecha=date("Y")."-".date("m")."-".date("d");
+				          echo "<input type='date' name='FechaInicio' min=".$fecha.">"
+									?>
 									<!-- /.input group -->
 								</div>
                 <!-- Date -->
 								<div class="form-group">
-									<label>Fecha de fin:</label>
-									<input type="date" name="FechaFin">
+									<label>Fecha de fin:</label><?php
+									$fecha=date("Y")."-".date("m")."-".date("d");
+				          echo "<input type='date' name='FechaFin' min=".$fecha.">"
+									?>
 									<!-- /.input group -->
 								</div>
 							</div>

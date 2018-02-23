@@ -88,11 +88,24 @@
 						</a>
 						<ul class="treeview-menu">
 							<li><a href="campanias.php"><i class="fa fa-circle-o"></i> Campañas</a></li>
-							<li><a href="Facebook.php"><i class="fa fa-circle-o"></i> Dashboard Facebook</a></li>
-							<li><a href="conjuntoanuncios.php"><i class="fa fa-circle-o"></i>Conjunto de anuncios</a></li>
-							<li><a href="anuncios.php"><i class="fa fa-circle-o"></i>Anuncios</a></li>
+							<li><a href="facebook.php"><i class="fa fa-circle-o"></i> Dashboard Facebook</a></li>
+							<li><a href="conjuntoanuncios.php"><i class="fa fa-angle-right"></i>Conjunto de anuncios</a></li>
+							<li><a href="anuncios.php"><i class="fa fa-angle-right"></i>Anuncios</a></li>
 							<li class="active"><a href="adwords.php"><i class="fa fa-circle-o"></i> Dashboard AdWords</a></li>
-							<li><a href="omedios.php"><i class="fa fa-circle-o"></i> Dashboard OtrosMedios</a></li>
+							<li><a href="AWanuncios.php"><i class="fa fa-angle-right"></i>Anuncios</a></li>
+							<li><a href="index3.html"><i class="fa fa-circle-o"></i> Dashboard OtrosMedios</a></li>
+						</ul>
+					</li>
+					<li class="treeview">
+						<a href="#">
+						<i class="fa fa-dashboard"></i> <span>Admin</span>
+						<span class="pull-right-container">
+						<i class="fa fa-angle-left pull-right"></i>
+						</span>
+						</a>
+						<ul class="treeview-menu">
+							<li><a href="AdminFacebook.php"><i class="fa fa-circle-o"></i> Dashboard Facebook</a></li>
+							<li><a href="AdminAdWords.php"><i class="fa fa-circle-o"></i> Dashboard AdWords</a></li>
 						</ul>
 					</li>
 				</ul>
@@ -112,6 +125,19 @@
 				<li class="active">AdWords</li>
 			</ol>
 		</section>
+		<?php
+			if(isset($_GET["mensaje"])) {
+				$mesaje = $_GET["mensaje"];
+				echo"<br><div class='box-body'>
+					<div class='alert alert-success alert-dismissible'>
+						<button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button>
+						<h4><i class='icon fa fa-check'></i> Se ha generado correctamente con el nombre: </h4>
+						".$mesaje."
+					</div>
+				</div>
+				<!-- /.box-body -->";
+			}
+		?>
 		<!-- Main content -->
 		<section class="content">
 			<div class="box box-primary" style="padding-left: 2%;">
@@ -127,18 +153,19 @@
 						 $respuesta = $con -> query($sql);
 						 $filas = mysqli_num_rows($respuesta);
 					 ?>
-        <form role="form">
+        <form role="form" action="AddAdWords.php" method="POST">
 				<div class="box-body">
 
 						  <div class="form-group">
                  <label>Seleccionar campaña  (Si la campaña no está creada, crearla en la pestaña "Campaña")</label>
-                 <select class="form-control">
+                 <select class="form-control" name="idcampania">
+								<option></option>
                  <?php
                     if($filas > 0)
                     {
                       while($result = $respuesta -> fetch_assoc()) //fetch_assoc() = devuelve un arreglo asociativo con el row en el que se encuentre
                       {
-                        echo "<option>", $result["CAMP_NOMBRE"], "</option>";
+                        echo "<option value=".$result['CAMP_ID'].">".$result["CAMP_NOMBRE"],"</option>";
                       }
                     }
                     ?>
@@ -156,13 +183,14 @@
                ?>
             <div class="form-group">
                <label>Marca</label>
-               <select class="form-control">
+               <select class="form-control" name="idmarca">
+								 <option></option>
                <?php
                   if($filas > 0)
                   {
                     while($result = $respuesta -> fetch_assoc()) //fetch_assoc() = devuelve un arreglo asociativo con el row en el que se encuentre
                     {
-                      echo "<option>", $result["TMA_NOMBRE"], "</option>";
+                      echo "<option value=".$result['TMA_ID'].">".$result["TMA_NOMBRE"],"</option>";
                     }
                   }
                   ?>
@@ -173,7 +201,7 @@
                $con = new mysqli($servidor, $usuario, $password, $bd);
                $con->set_charset("utf8");
                  global $con;
-                 $sql = "SELECT * FROM tipo_plataforma;";
+                 $sql = "SELECT * FROM red;";
                  $respuesta = $con -> query($sql);
                  $filas = mysqli_num_rows($respuesta);
                ?>
@@ -184,7 +212,7 @@
                   {
                     while($result = $respuesta -> fetch_assoc()) //fetch_assoc() = devuelve un arreglo asociativo con el row en el que se encuentre
                     {
-                      echo "<div class='radio'><label><input type='radio' name='optionsRadios' id='optionsRadios1' value='option1' checked>", $result["TPL_NOMBRE"], "</label></div>";
+                      echo "<div class='radio'><label><input type='radio' name='idred' value=' ". $result['RED_ID']. " ' >", $result["RED_NOMBRE"], "</label></div>";
                     }
                   }
                   ?>
@@ -194,25 +222,27 @@
                $con = new mysqli($servidor, $usuario, $password, $bd);
                $con->set_charset("utf8");
                  global $con;
-                 $sql = "SELECT * FROM tipo_marca;";
+                 $sql = "SELECT * FROM canal;";
                  $respuesta = $con -> query($sql);
                  $filas = mysqli_num_rows($respuesta);
                ?>
             <div class="form-group">
+							<option></option>
                <label>Canal</label>
-               <select class="form-control">
+               <select class="form-control" name="idcanal">
+								 <option></option>
                <?php
                   if($filas > 0)
                   {
                     while($result = $respuesta -> fetch_assoc()) //fetch_assoc() = devuelve un arreglo asociativo con el row en el que se encuentre
                     {
-                      echo "<option>", $result["TMA_NOMBRE"], "</option>";
+                      echo "<option value=".$result['CAN_ID'].">".$result["CAN_NOMBRE"],"</option>";
                     }
                   }
                   ?>
                </select>
             </div>
-            <!-- Menú objetvio -->
+            <!-- Menú objetivo -->
 						<?php
                $con = new mysqli($servidor, $usuario, $password, $bd);
                $con->set_charset("utf8");
@@ -223,13 +253,14 @@
             ?>
             <div class="form-group">
                <label>Objetivo</label>
-               <select class="form-control">
+               <select class="form-control" name="idobjetivo">
+								 <option></option>
                <?php
                   if($filas > 0)
                   {
                     while($result = $respuesta -> fetch_assoc()) //fetch_assoc() = devuelve un arreglo asociativo con el row en el que se encuentre
                     {
-                      echo "<option>", $result["TOB_NOMBRE"], "</option>";
+                      echo "<option value=".$result['TOB_ID'].">".$result["TOB_NOMBRE"],"</option>";
 
                     }
                   }
@@ -238,8 +269,126 @@
             </div>
             <!-- Orden -->
             <label>Ingrese número de orden (Si son más de una, separelas por ",")</label>
-            <input type="text" class="form-control" placeholder="Número de orden">
-            <div class="box-body">
+            <input type="text" class="form-control" name="ordenes" placeholder="Número de orden" required>
+						<br>
+						<!-- Rate_type -->
+            <?php
+               $con = new mysqli($servidor, $usuario, $password, $bd);
+               $con->set_charset("utf8");
+                 global $con;
+                 $sql = "SELECT * FROM rate_type;";
+                 $respuesta = $con -> query($sql);
+                 $filas = mysqli_num_rows($respuesta);
+               ?>
+            <label>Rate_type</label>
+            <div class="form-group">
+               <?php
+                  if($filas > 0)
+                  {
+                    while($result = $respuesta -> fetch_assoc()) //fetch_assoc() = devuelve un arreglo asociativo con el row en el que se encuentre
+                    {
+                      echo "<div class='radio'><label><input type='radio' name='rate_type' value='".$result['RTY_ID']."' checked>", $result["RTY_NOMBRE"], "</label></div>";
+                    }
+                  }
+                  ?>
+            </div>
+
+            <!-- Inicio_conjunto_anuncio -->
+            <div class="form-group">
+              <label>Inicio_conjunto_anuncio:</label>
+							<?php
+							$fecha=date("Y")."-".date("m")."-".date("d");
+		          echo "<input type='date' name='Inicio_conjunto_anuncio' min=".$fecha.">"
+							?>
+
+              <!-- /.input group -->
+            </div>
+            <!-- Fin_conjunto_anuncio -->
+            <div class="form-group">
+              <label>Fin_conjunto_anuncio:</label>
+							<?php
+							$fecha=date("Y")."-".date("m")."-".date("d");
+		          echo "<input type='date' name='Fin_conjunto_anuncio' min=".$fecha.">"
+							?>
+              <!-- /.input group -->
+            </div>
+
+						<!-- Género -->
+						<?php
+							 $con = new mysqli($servidor, $usuario, $password, $bd);
+							 $con->set_charset("utf8");
+								 global $con;
+								 $sql = "SELECT * FROM GENERO;";
+								 $respuesta = $con -> query($sql);
+								 $filas = mysqli_num_rows($respuesta);
+							 ?>
+						<label>Género</label>
+						<div class="form-group">
+							 <?php
+									if($filas > 0)
+									{
+										while($result = $respuesta -> fetch_assoc()) //fetch_assoc() = devuelve un arreglo asociativo con el row en el que se encuentre
+										{
+											echo "<div class='radio'><label><input type='radio' name='genero' value='".$result['GEN_ID']."' checked>", $result["GEN_NOMBRE"], "</label></div>";
+										}
+									}
+									?>
+						</div>
+						<!-- Rango de edad -->
+            <div class="form-group">
+              <label>Seleccione el rago de edad, si son más, separelas por comas: (18-24)(25-34)(35-44)(45-54)(55-64)(65+) </label>
+							<br><br>
+							<label>Rango: <input type="text" name="rangoEdad">
+            </div>
+
+						<!-- Segmentación -->
+            <div class="form-group">
+              <label>Segmentación: </label><br><br>
+							<textarea rows="4" cols="50" name="segmentacion"></textarea>
+            </div>
+						<!-- Rango de edad -->
+            <div class="form-group">
+              <label>Frecuencia</label>
+							<br>
+							<p>Frecuencia de anuncios: (0-9)&nbsp;<input type="number" name="frec" min="0" max="9" step="1"></p>
+							<p>Frecuencia de días: (0-7)&nbsp;<input type="number" name="frecdias" min="0" max="7" step="1"></p>
+              <!-- /.input group -->
+            </div>
+						<!-- Dispositivo -->
+            <?php
+               $con = new mysqli($servidor, $usuario, $password, $bd);
+               $con->set_charset("utf8");
+                 global $con;
+                 $sql = "SELECT * FROM Dispositivo;";
+                 $respuesta = $con -> query($sql);
+                 $filas = mysqli_num_rows($respuesta);
+               ?>
+            <label>Dispositivo</label>
+            <div class="form-group">
+               <?php
+                  if($filas > 0)
+                  {
+                    while($result = $respuesta -> fetch_assoc()) //fetch_assoc() = devuelve un arreglo asociativo con el row en el que se encuentre
+                    {
+                      echo "<div class='radio'><label><input type='radio' name='dispositivo' value='".$result['DIS_ID']."' checked>", $result["DIS_NOMBRE"], "</label></div>";
+                    }
+                  }
+                  ?>
+            </div>
+						<div class="form-group">
+							<label>Ingrese inversión</label>
+							<input type="text" class="form-control" name="inversion">
+							<br>
+							<label>Identificador</label>
+							<input type="text" class="form-control" placeholder="Ingrese identificador de nombre" name="Identificador" maxlength="30">
+						</div>
+            <br>
+						<div class="box-body">
+							<div class="col-xs-4">
+								<button type="submit" name="enviar" class="btn btn-primary btn-block btn-flat" value="1">Guardar</button>
+							</div>
+						</div>
+
 				</div>
       </form>
     </div>

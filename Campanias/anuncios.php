@@ -94,7 +94,20 @@
 							<li><a href="conjuntoanuncios.php"><i class="fa fa-angle-right"></i>Conjunto de anuncios</a></li>
 							<li class="active"><a href="anuncios.php"><i class="fa fa-angle-right"></i>Anuncios</a></li>
 							<li><a href="adwords.php"><i class="fa fa-circle-o"></i> Dashboard AdWords</a></li>
+							<li><a href="AWanuncios.php"><i class="fa fa-angle-right"></i>Anuncios</a></li>
 							<li><a href="index3.html"><i class="fa fa-circle-o"></i> Dashboard OtrosMedios</a></li>
+						</ul>
+					</li>
+					<li class="treeview">
+						<a href="#">
+						<i class="fa fa-dashboard"></i> <span>Admin</span>
+						<span class="pull-right-container">
+						<i class="fa fa-angle-left pull-right"></i>
+						</span>
+						</a>
+						<ul class="treeview-menu">
+							<li><a href="AdminFacebook.php"><i class="fa fa-circle-o"></i> Dashboard Facebook</a></li>
+							<li><a href="AdminAdWords.php"><i class="fa fa-circle-o"></i> Dashboard AdWords</a></li>
 						</ul>
 					</li>
 				</ul>
@@ -133,13 +146,12 @@
         <div class="box-header with-border">
           <h3 class="box-title">Anuncios</h3>
         </div>
-
 				<!-- /.box-header -->
 				<?php
 					 $con = new mysqli($servidor, $usuario, $password, $bd);
 					 $con->set_charset("utf8");
 						 global $con;
-						 $sql = "SELECT * FROM Facebook;";
+						 $sql = "SELECT * FROM Facebook GROUP by fb_id desc;";
 						 $respuesta = $con -> query($sql);
 						 $filas = mysqli_num_rows($respuesta);
 					 ?>
@@ -148,12 +160,41 @@
 						  <div class="form-group">
                  <label>Seleccionar campaña  (Si la campaña no está creada, crearla en la pestaña "Campaña")</label>
                  <select class="form-control" name="idcampania">
+								<option></option>
                  <?php
                     if($filas > 0)
                     {
                       while($result = $respuesta -> fetch_assoc()) //fetch_assoc() = devuelve un arreglo asociativo con el row en el que se encuentre
                       {
                         echo "<option value=".$result['FB_ID'].">".$result["FB_NOMBRECAMPANIA"],"</option>";
+                      }
+                    }
+                    ?>
+                 </select>
+              </div>
+						</div>
+
+				<!-- Conjunto de anuncio -->
+				<?php
+					 $con = new mysqli($servidor, $usuario, $password, $bd);
+					 $con->set_charset("utf8");
+						 global $con;
+						 $sql = "SELECT * FROM conjunto_anuncios GROUP by coa_id desc;";
+						 $respuesta = $con -> query($sql);
+						 $filas = mysqli_num_rows($respuesta);
+					 ?>
+				<div class="box-body">
+					<form role="form" action="Addanuncio.php" method="POST">
+						  <div class="form-group">
+                 <label>Seleccionar conjunto de anuncio</label>
+                 <select class="form-control" name="idcampania">
+									 <option></option>
+                 <?php
+                    if($filas > 0)
+                    {
+                      while($result = $respuesta -> fetch_assoc()) //fetch_assoc() = devuelve un arreglo asociativo con el row en el que se encuentre
+                      {
+                        echo "<option value=".$result['COA_ID'].">".$result["COA_NOMBRE"],"</option>";
                       }
                     }
                     ?>
@@ -195,6 +236,7 @@
         <div class="form-group">
            <label>Ad_unit_type</label>
            <select class="form-control" name="Ad_unit_type">
+						 <option></option>
            <?php
               if($filas > 0)
               {
@@ -218,6 +260,7 @@
         <div class="form-group">
            <label>Video_length</label>
            <select class="form-control" name="video_length">
+						 <option></option>
            <?php
               if($filas > 0)
               {
@@ -232,15 +275,24 @@
         <!-- Inicio_anuncio -->
         <div class="form-group">
           <label>Inicio_anuncio:</label>
-          <input type="date" name="Inicio_anuncio">
+
+					<?php
+					$fecha=date("Y")."-".date("m")."-".date("d");
+          echo "<input type='date' name='Inicio_anuncio' min=".$fecha.">"
+					?>
           <!-- /.input group -->
         </div>
         <!-- Fin_anuncio -->
         <div class="form-group">
           <label>Fin_anuncio:</label>
-          <input type="date" name="Fin_anuncio">
+					<?php
+					$fecha=date("Y")."-".date("m")."-".date("d");
+          echo "<input type='date' name='Fin_anuncio' min=".$fecha.">"
+					?>
           <!-- /.input group -->
         </div>
+				<label>Identificador</label>
+				<input type="text" class="form-control" placeholder="Ingrese identificador de nombre" name="Identificador" maxlength="30">
         <div class="box-body">
           <div class="col-xs-4">
             <button type="submit" name="enviar" class="btn btn-primary btn-block btn-flat" value="1">Guardar</button>

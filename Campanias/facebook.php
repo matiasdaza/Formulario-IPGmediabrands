@@ -94,7 +94,20 @@
 							<li><a href="conjuntoanuncios.php"><i class="fa fa-angle-right"></i>Conjunto de anuncios</a></li>
 							<li><a href="anuncios.php"><i class="fa fa-angle-right"></i>Anuncios</a></li>
 							<li><a href="adwords.php"><i class="fa fa-circle-o"></i> Dashboard AdWords</a></li>
+							<li><a href="AWanuncios.php"><i class="fa fa-angle-right"></i>Anuncios</a></li>
 							<li><a href="index3.html"><i class="fa fa-circle-o"></i> Dashboard OtrosMedios</a></li>
+						</ul>
+					</li>
+					<li class="treeview">
+						<a href="#">
+						<i class="fa fa-dashboard"></i> <span>Admin</span>
+						<span class="pull-right-container">
+						<i class="fa fa-angle-left pull-right"></i>
+						</span>
+						</a>
+						<ul class="treeview-menu">
+							<li><a href="AdminFacebook.php"><i class="fa fa-circle-o"></i> Dashboard Facebook</a></li>
+							<li><a href="AdminAdWords.php"><i class="fa fa-circle-o"></i> Dashboard AdWords</a></li>
 						</ul>
 					</li>
 				</ul>
@@ -138,7 +151,7 @@
 					 $con = new mysqli($servidor, $usuario, $password, $bd);
 					 $con->set_charset("utf8");
 						 global $con;
-						 $sql = "SELECT * FROM campania;";
+						 $sql = "SELECT * FROM campania GROUP by camp_id desc;";
 						 $respuesta = $con -> query($sql);
 						 $filas = mysqli_num_rows($respuesta);
 					 ?>
@@ -147,12 +160,13 @@
 						  <div class="form-group">
                  <label>Seleccionar campaña  (Si la campaña no está creada, crearla en la pestaña "Campaña")</label>
                  <select class="form-control" name="idcampania">
+									 <option></option>
                  <?php
                     if($filas > 0)
                     {
                       while($result = $respuesta -> fetch_assoc()) //fetch_assoc() = devuelve un arreglo asociativo con el row en el que se encuentre
                       {
-												echo "<option value=".$result['CAMP_ID'].">".$result["CAMP_NOMBRE"],"</option>";
+												echo "<option value=".$result['CAMP_ID'].">".$result["CAMP_NOMBRECAMPANIA"],"</option>";
                       }
                     }
                     ?>
@@ -192,6 +206,7 @@
             <div class="form-group">
                <label>Marca</label>
                <select class="form-control" name="idmarca">
+							<option></option>
                <?php
                   if($filas > 0)
                   {
@@ -215,6 +230,7 @@
             <div class="form-group">
                <label>Objetivo</label>
                <select class="form-control" name='idobjetivo'>
+							<option></option>
                <?php
                   if($filas > 0)
                   {
@@ -252,7 +268,7 @@
 
             <!-- Orden -->
             <label>Ingrese número de orden (Si son más de una, separelas por ",")</label>
-            <input type="text" class="form-control" name='ordenes' placeholder="Número de orden">
+            <input type="text" class="form-control" name='ordenes' placeholder="Número de orden" required>
 
 						<div class="box-body">
 							<div class="col-xs-4">
