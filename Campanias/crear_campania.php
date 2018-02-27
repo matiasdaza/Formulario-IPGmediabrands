@@ -46,7 +46,7 @@ if (isset($_POST['enviar']))
         echo $sql;
         if($con -> query($sql)) //$con -> query($sql) = True or false
         {
-            header('location: campanias.php');
+            header("location: campanias.php?mensaje=$nombre");
 
         }
         else

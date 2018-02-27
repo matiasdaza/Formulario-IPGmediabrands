@@ -127,6 +127,19 @@
 				<li class="active">Campañas</li>
 			</ol>
 		</section>
+		<?php
+			if(isset($_GET["mensaje"])) {
+				$mesaje = $_GET["mensaje"];
+				echo"<br><div class='box-body'>
+					<div class='alert alert-success alert-dismissible'>
+						<button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button>
+						<h4><i class='icon fa fa-check'></i> Se ha generado correctamente con el nombre: </h4>
+						".$mesaje."
+					</div>
+				</div>
+				<!-- /.box-body -->";
+			}
+		?>
 		<!-- Main content -->
 		<section class="content">
 			<div class="box box-primary">
