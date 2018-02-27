@@ -198,7 +198,7 @@
               <label>Inicio_conjunto_anuncio:</label>
 							<?php
 							$fecha=date("Y")."-".date("m")."-".date("d");
-		          echo "<input type='date' name='Inicio_conjunto_anuncio' min=".$fecha.">"
+		          echo "<input type='date' name='Inicio_conjunto_anuncio' >" // min=".$fecha."
 							?>
 
               <!-- /.input group -->
@@ -208,7 +208,7 @@
               <label>Fin_conjunto_anuncio:</label>
 							<?php
 							$fecha=date("Y")."-".date("m")."-".date("d");
-		          echo "<input type='date' name='Fin_conjunto_anuncio' min=".$fecha.">"
+		          echo "<input type='date' name='Fin_conjunto_anuncio' >" // min=".$fecha."
 							?>
               <!-- /.input group -->
             </div>

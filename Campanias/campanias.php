@@ -146,7 +146,7 @@
 									<label>Fecha de inicio:</label>
 									<?php
 									$fecha=date("Y")."-".date("m")."-".date("d");
-				          echo "<input type='date' name='FechaInicio' min=".$fecha.">"
+				          echo "<input type='date' name='FechaInicio'>" // min=".$fecha."
 									?>
 									<!-- /.input group -->
 								</div>
@@ -154,7 +154,7 @@
 								<div class="form-group">
 									<label>Fecha de fin:</label><?php
 									$fecha=date("Y")."-".date("m")."-".date("d");
-				          echo "<input type='date' name='FechaFin' min=".$fecha.">"
+				          echo "<input type='date' name='FechaFin'>" // min=".$fecha."
 									?>
 									<!-- /.input group -->
 								</div>
