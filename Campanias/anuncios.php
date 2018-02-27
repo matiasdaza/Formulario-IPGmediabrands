@@ -147,39 +147,16 @@
           <h3 class="box-title">Anuncios</h3>
         </div>
 				<!-- /.box-header -->
-				<?php
-					 $con = new mysqli($servidor, $usuario, $password, $bd);
-					 $con->set_charset("utf8");
-						 global $con;
-						 $sql = "SELECT * FROM Facebook GROUP by fb_id desc;";
-						 $respuesta = $con -> query($sql);
-						 $filas = mysqli_num_rows($respuesta);
-					 ?>
-				<div class="box-body">
-					<form role="form" action="Addanuncio.php" method="POST">
-						  <div class="form-group">
-                 <label>Seleccionar campaña  (Si la campaña no está creada, crearla en la pestaña "Campaña")</label>
-                 <select class="form-control" name="idcampania2">
-								<option></option>
-                 <?php
-                    if($filas > 0)
-                    {
-                      while($result = $respuesta -> fetch_assoc()) //fetch_assoc() = devuelve un arreglo asociativo con el row en el que se encuentre
-                      {
-                        echo "<option value=".$result['FB_ID'].">".$result["FB_NOMBRECAMPANIA"],"</option>";
-                      }
-                    }
-                    ?>
-                 </select>
-              </div>
-						</div>
-
+				<!-- Agregar posteriormente las campañas de facebook, y con AJAX mostrar sus conjuntos de anuncios respectivos -->
 				<!-- Conjunto de anuncio -->
 				<?php
 					 $con = new mysqli($servidor, $usuario, $password, $bd);
 					 $con->set_charset("utf8");
 						 global $con;
-						 $sql = "SELECT * FROM conjunto_anuncios GROUP by coa_id desc;";
+						 $sql = "SELECT coa_id, coa_nombre, fb_nombrecampania
+						 				FROM conjunto_anuncios, facebook
+										where coa_facebook = fb_id
+										GROUP by coa_id desc;";
 						 $respuesta = $con -> query($sql);
 						 $filas = mysqli_num_rows($respuesta);
 					 ?>
@@ -194,7 +171,7 @@
                     {
                       while($result = $respuesta -> fetch_assoc()) //fetch_assoc() = devuelve un arreglo asociativo con el row en el que se encuentre
                       {
-                        echo "<option value=".$result['COA_ID'].">".$result["COA_NOMBRE"],"</option>";
+                        echo "<option value=".$result['coa_id'].">".$result["coa_nombre"]."&nbsp;&nbsp;&nbsp; // &nbsp;&nbsp;&nbsp;".$result["fb_nombrecampania"]."</option>";
                       }
                     }
                     ?>
