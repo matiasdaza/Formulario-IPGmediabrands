@@ -176,7 +176,7 @@
                       echo "<td>", $row["can_nombre"], "</td>";
                       echo "<td>", $row["tob_nombre"],"</td>" ;
                       echo "<td>", $row["adw_ordenes"], "</td>";
-                      echo '<td><input type="checkbox" name="monstar" value='.$row['adw_id'].'></td>';
+                      echo '<td><input type="checkbox" name="idcampania" value='.$row['adw_id'].'></td>';
                       echo "</tr>";
                    }
                }

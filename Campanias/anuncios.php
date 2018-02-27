@@ -159,7 +159,7 @@
 					<form role="form" action="Addanuncio.php" method="POST">
 						  <div class="form-group">
                  <label>Seleccionar campaña  (Si la campaña no está creada, crearla en la pestaña "Campaña")</label>
-                 <select class="form-control" name="idcampania">
+                 <select class="form-control" name="idcampania2">
 								<option></option>
                  <?php
                     if($filas > 0)

@@ -5,11 +5,15 @@ session_start();
 
 <!DOCTYPE html>
 <html>
-  <head></head>
+  <head>
+    <meta charset="utf-8">
+  </head>
   <body>
 
+
+
     <?php
-   $fbid = $_GET["fbid"];
+    $fbid = $_GET["idcampania"];
    $con = new mysqli($servidor, $usuario, $password, $bd);
    $con->set_charset("utf8");
    global $con;
@@ -24,10 +28,9 @@ session_start();
        }
    }
 
-    echo "<h2> Campaña: ".$salida."</h2>";?>
+    echo "<h2> Campaña:".$salida." </h2>";?>
 
     <?php
-   $fbid = $_GET["fbid"];
    $con = new mysqli($servidor, $usuario, $password, $bd);
    $con->set_charset("utf8");
    global $con;
@@ -46,8 +49,6 @@ session_start();
     <label>Detalle de la campaña: </label>
 
       <?php
-      if(isset($_GET["fbid"])) {
-        $fbid = $_GET["fbid"];
         $con = new mysqli($servidor, $usuario, $password, $bd);
         if ($con->connect_errno) {
            printf("Connect failed: %s\n", $con->connect_error);
@@ -121,13 +122,12 @@ session_start();
              </table>";
             }
         }
-      }?>
+      ?>
 
 
     <br><br>
 
     <?php
-   $fbid = $_GET["fbid"];
    $con = new mysqli($servidor, $usuario, $password, $bd);
    $con->set_charset("utf8");
    global $con;
@@ -147,8 +147,7 @@ session_start();
     ?>
     <label>Anuncios: </label>
     <?php
-      if(isset($_GET["fbid"])) {
-        $fbid = $_GET["fbid"];
+
         $con = new mysqli($servidor, $usuario, $password, $bd);
         if ($con->connect_errno) {
            printf("Connect failed: %s\n", $con->connect_error);
@@ -186,7 +185,7 @@ session_start();
              </table>";
             }
         }
-      }?>
+      ?>
 
 
 

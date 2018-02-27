@@ -2,9 +2,14 @@
 include ('../conexion/conexion.php');
 session_start();
 
+
 if (isset($_POST['enviar']))
 {
-        $monstrar=$_POST['monstar'];
-        header("location: detalle.php?fbid=$monstrar");
+  $mostrar=$_POST['mostrar'];
+  header("location: detalle.php?fbid=$mostrar");
+}else{
+  $mostrar = $_GET["mostrar"];
+  header("location: detalle.php?fbid=$mostrar");
 }
+
 ?>

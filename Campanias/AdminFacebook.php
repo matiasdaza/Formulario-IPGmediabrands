@@ -181,7 +181,7 @@
                       echo "<td>", $row["tob_nombre"],"</td>" ;
                       echo "<td>", $row["tco_nombre"], "</td>";
                       echo "<td>", $row["fb_ordenes"],"</td>" ;
-                      echo '<td><input type="checkbox" name="monstar" value='.$row['fb_id'].'></td>';
+                      echo '<td><input type="checkbox" name="mostrar" value='.$row['fb_id'].'></td>';
                       echo "</tr>";
                    }
                }

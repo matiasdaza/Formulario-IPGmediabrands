@@ -34,7 +34,7 @@ if (isset($_POST['enviar']))
         echo $sql;
         if($con -> query($sql)) //$con -> query($sql) = True or false
         {
-            header("location: AWMostrarCampanias.php?mensaje=$idcampania");
+            header("location: AWdetalle.php?idcampania=$idcampania");
 
         }
         else
