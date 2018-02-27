@@ -12,16 +12,27 @@ if (isset($_POST['enviar']))
         $edadmin=$_POST['edadmin'];
         $edadmax=$_POST['edadmax'];
         $segmentacion=$_POST['segmentacion'];
-        $frec=$_POST['frec'];
-        $frecdias=$_POST['frecdias'];
+        if(empty($_POST['frec'])){
+          $frec='NULL';
+        }else {
+          $frec=$_POST['frec'];
+        }
+        if(empty($_POST['frecdias'])){
+          $frecdias='NULL';
+        }else {
+          $frecdias=$_POST['frecdias'];
+        }
         $dispositivo=$_POST['dispositivo'];
         if(empty($_POST['inversion'])){
           $inversion='NULL';
         }else {
           $inversion=$_POST['inversion'];
         }
-
-        $Identificador=$_POST['Identificador'];
+        if(empty($_POST['Identificador'])){
+          $Identificador='NULL';
+        }else {
+          $Identificador=$_POST['Identificador'];
+        }
 
         $con = new mysqli($servidor, $usuario, $password, $bd);
         $con->set_charset("utf8");

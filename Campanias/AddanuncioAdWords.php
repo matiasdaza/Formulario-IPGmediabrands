@@ -8,7 +8,11 @@ if (isset($_POST['enviar']))
         $idcampania=$_POST['idcampania'];
         $nombrecampania=$_POST['nombrecampania'];
         $video_length=$_POST['video_length'];
-        $Identificador=$_POST['Identificador'];
+        if(empty($_POST['Identificador'])){
+          $Identificador='';
+        }else {
+          $Identificador=$_POST['Identificador'];
+        }
 
         $con = new mysqli($servidor, $usuario, $password, $bd);
         $con->set_charset("utf8");
@@ -34,7 +38,7 @@ if (isset($_POST['enviar']))
         echo $sql;
         if($con -> query($sql)) //$con -> query($sql) = True or false
         {
-            header("location: AWdetalle.php?idcampania=$idcampania");
+            header("location: AWanuncios.php?mensaje=$salida");
 
         }
         else

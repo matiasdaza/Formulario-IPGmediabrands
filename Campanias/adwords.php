@@ -242,31 +242,7 @@
                   ?>
                </select>
             </div>
-            <!-- Menú objetivo -->
-						<?php
-               $con = new mysqli($servidor, $usuario, $password, $bd);
-               $con->set_charset("utf8");
-                 global $con;
-                 $sql = "SELECT * FROM tipo_objetivo;";
-                 $respuesta = $con -> query($sql);
-                 $filas = mysqli_num_rows($respuesta);
-            ?>
-            <div class="form-group">
-               <label>Objetivo</label>
-               <select class="form-control" name="idobjetivo">
-								 <option></option>
-               <?php
-                  if($filas > 0)
-                  {
-                    while($result = $respuesta -> fetch_assoc()) //fetch_assoc() = devuelve un arreglo asociativo con el row en el que se encuentre
-                    {
-                      echo "<option value=".$result['TOB_ID'].">".$result["TOB_NOMBRE"],"</option>";
 
-                    }
-                  }
-                  ?>
-               </select>
-            </div>
             <!-- Orden -->
             <label>Ingrese número de orden (Si son más de una, separelas por ",")</label>
             <input type="text" class="form-control" name="ordenes" placeholder="Número de orden" required>
@@ -293,25 +269,7 @@
                   ?>
             </div>
 
-            <!-- Inicio_conjunto_anuncio -->
-            <div class="form-group">
-              <label>Inicio_conjunto_anuncio:</label>
-							<?php
-							$fecha=date("Y")."-".date("m")."-".date("d");
-		          echo "<input type='date' name='Inicio_conjunto_anuncio' >" // min=".$fecha."
-							?>
-
-              <!-- /.input group -->
-            </div>
-            <!-- Fin_conjunto_anuncio -->
-            <div class="form-group">
-              <label>Fin_conjunto_anuncio:</label>
-							<?php
-							$fecha=date("Y")."-".date("m")."-".date("d");
-		          echo "<input type='date' name='Fin_conjunto_anuncio'>" // min=".$fecha."
-							?>
-              <!-- /.input group -->
-            </div>
+            
 
 						<!-- Género -->
 						<?php

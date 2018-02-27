@@ -237,8 +237,9 @@
         <div class="form-group">
            <label>Video_length</label>
            <select class="form-control" name="video_length">
-						 <option></option>
+
            <?php
+					 		echo"<option value=200></option>";
               if($filas > 0)
               {
                 while($result = $respuesta -> fetch_assoc()) //fetch_assoc() = devuelve un arreglo asociativo con el row en el que se encuentre

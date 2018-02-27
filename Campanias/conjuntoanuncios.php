@@ -279,7 +279,7 @@
             </div>
 						<div class="form-group">
 							<label>Ingrese inversión</label>
-							<input type="text" class="form-control" name="inversion" placeholder="Inversión en CLP, sin puntos. Ej: 1000000">
+							<input type="text" class="form-control" name="inversion" placeholder="Inversión en CLP, sin puntos. Ej: 1000000" required>
 							<br>
 							<label>Identificador</label>
 							<input type="text" class="form-control" placeholder="Ingrese identificador de nombre" name="Identificador" maxlength="30">

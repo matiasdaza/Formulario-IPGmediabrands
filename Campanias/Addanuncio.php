@@ -8,10 +8,18 @@ if (isset($_POST['enviar']))
         $idcampania=$_POST['idcampania'];
         $formatotema=$_POST['formatotema'];
         $Ad_unit_type=$_POST['Ad_unit_type'];
-        $video_length=$_POST['video_length'];
+        if(empty($_POST['video_length'])){
+          $video_length=200;
+        }else {
+          $video_length=$_POST['video_length'];
+        }
         $Inicio_anuncio=$_POST['Inicio_anuncio'];
         $Fin_anuncio=$_POST['Fin_anuncio'];
-        $Identificador=$_POST['Identificador'];
+        if(empty($_POST['Identificador'])){
+          $Identificador='';
+        }else {
+          $Identificador=$_POST['Identificador'];
+        }
         if(empty($_POST['inversion'])){
           $inversion='NULL';
         }else {
@@ -63,11 +71,11 @@ if (isset($_POST['enviar']))
         $sql = "INSERT INTO anuncios(ANU_FACEBOOK, ANU_FORMATOTEMA, ANU_AUT, ANU_VIDEOLENGTH, ANU_INIDATE, ANU_FINDATE, ANU_NOMBRE, ANU_INVERSION)
                     VALUES  ($idcampania, $formatotema, $Ad_unit_type, $video_length, '$Inicio_anuncio', '$Fin_anuncio', '$salida', $inversion)";
                      //camp_id es auto increment, por lo que no se agrega
-        //echo $sql;
+        echo $sql;
         if($con -> query($sql)) //$con -> query($sql) = True or false
         {
             echo $mostrar;
-            header("location: MostrarCampanias.php?mostrar=$mostrar");
+            header("location: anuncios.php?mensaje=$salida");
 
         }
         else
