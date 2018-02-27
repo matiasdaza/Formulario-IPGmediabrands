@@ -15,7 +15,12 @@ if (isset($_POST['enviar']))
         $frec=$_POST['frec'];
         $frecdias=$_POST['frecdias'];
         $dispositivo=$_POST['dispositivo'];
-        $inversion=$_POST['inversion'];
+        if(empty($_POST['inversion'])){
+          $inversion='NULL';
+        }else {
+          $inversion=$_POST['inversion'];
+        }
+
         $Identificador=$_POST['Identificador'];
 
         $con = new mysqli($servidor, $usuario, $password, $bd);
@@ -35,8 +40,8 @@ if (isset($_POST['enviar']))
             }
         }
         echo $salida;
-        $sql = "INSERT INTO CONJUNTO_ANUNCIOS(COA_FACEBOOK, COA_RATETYPE, COA_IDATE , COA_FDATE , COA_GENERO , COA_EDADMIN,	COA_EDADMAX, COA_SEGMENTACION, COA_FREC, COA_FRECDIAS, COA_DISPOSITIVO, COA_NOMBRE, COA_INVERSION)
-                    VALUES  ($idcampania,$rate_type,'$Inicio_conjunto_anuncio','$Fin_conjunto_anuncio',$genero,$edadmin,$edadmax,'$segmentacion', $frec, $frecdias, $dispositivo, '$salida', $inversion)";
+        $sql = "INSERT INTO CONJUNTO_ANUNCIOS(COA_FACEBOOK, COA_RATETYPE, COA_IDATE , COA_FDATE , COA_GENERO , COA_EDADMIN,	COA_EDADMAX, COA_SEGMENTACION, COA_FREC, COA_FRECDIAS, COA_DISPOSITIVO, COA_INVERSION, COA_NOMBRE)
+                    VALUES  ($idcampania,$rate_type,'$Inicio_conjunto_anuncio','$Fin_conjunto_anuncio',$genero,$edadmin,$edadmax,'$segmentacion', $frec, $frecdias, $dispositivo, $inversion, '$salida')";
                      //camp_id es auto increment, por lo que no se agrega
         if($con -> query($sql)) //$con -> query($sql) = True or false
         {

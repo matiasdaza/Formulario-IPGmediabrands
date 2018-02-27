@@ -12,6 +12,11 @@ if (isset($_POST['enviar']))
         $Inicio_anuncio=$_POST['Inicio_anuncio'];
         $Fin_anuncio=$_POST['Fin_anuncio'];
         $Identificador=$_POST['Identificador'];
+        if(empty($_POST['inversion'])){
+          $inversion='NULL';
+        }else {
+          $inversion=$_POST['inversion'];
+        }
 
         echo $idcampania;
 
@@ -55,8 +60,8 @@ if (isset($_POST['enviar']))
             }
         }
 
-        $sql = "INSERT INTO anuncios(ANU_FACEBOOK, ANU_FORMATOTEMA, ANU_AUT, ANU_VIDEOLENGTH, ANU_INIDATE, ANU_FINDATE, ANU_NOMBRE)
-                    VALUES  ($idcampania, $formatotema, $Ad_unit_type, $video_length, '$Inicio_anuncio', '$Fin_anuncio', '$salida')";
+        $sql = "INSERT INTO anuncios(ANU_FACEBOOK, ANU_FORMATOTEMA, ANU_AUT, ANU_VIDEOLENGTH, ANU_INIDATE, ANU_FINDATE, ANU_NOMBRE, ANU_INVERSION)
+                    VALUES  ($idcampania, $formatotema, $Ad_unit_type, $video_length, '$Inicio_anuncio', '$Fin_anuncio', '$salida', $inversion)";
                      //camp_id es auto increment, por lo que no se agrega
         //echo $sql;
         if($con -> query($sql)) //$con -> query($sql) = True or false
