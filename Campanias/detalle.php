@@ -124,9 +124,9 @@ session_start();
    $con = new mysqli($servidor, $usuario, $password, $bd);
    $con->set_charset("utf8");
    global $con;
-   $sql = "SELECT count(fb_id) as count
-          from anuncios, facebook
-          where anu_facebook = $fbid and fb_id = anu_facebook";
+   $sql = "SELECT count(coa_id) as count
+          from anuncios, conjunto_anuncios
+          where anu_facebook = coa_id and coa_facebook = $fbid";
    $respuesta = $con -> query($sql);
    $filas = mysqli_num_rows($respuesta);
    if($filas > 0)
@@ -151,9 +151,9 @@ session_start();
        }
         global $con;
         $sql = "SELECT DISTINCT anu_id, anu_nombre, tfo_nombre, aut_nombre, vle_nombre, anu_inidate, anu_findate
-                from anuncios, tipo_formato, ad_unit_type, video_length
-                where anu_facebook = $fbid and anu_formatotema = tfo_id and anu_aut = aut_id and anu_videolength = vle_id
-                group by anu_id desc;";
+from anuncios, conjunto_anuncios, tipo_formato, ad_unit_type, video_length
+where anu_facebook = coa_id and coa_facebook = $fbid and anu_formatotema = tfo_id and anu_aut = aut_id and anu_videolength = vle_id
+group by anu_id desc;";
         if($result = $con->query($sql)){
           while($row = $result->fetch_assoc()) //fetch_assoc() = devuelve un arreglo asociativo con el row en el que se encuentre
           {
