@@ -120,9 +120,9 @@
          <div class="box box-danger">
            <div class="box-header with-border">
              <h3 class="box-title">AdWords</h3>
-             <a href="../pdf/AdWords.php" class="btn">
+             <!--<a href="../pdf/AdWords.php" class="btn">
                <i  class="fa fa-download"></i> Descargar
-            </a>
+            </a>-->
            </div>
            <!-- /.box-header -->
            <div class="box-body">
@@ -150,7 +150,7 @@
 								 	global $con;
 								 	$sql =  "SELECT adw_id, camp_nombre, tma_nombre, red_nombre, can_nombre, adw_ordenes
 								 					 FROM adwords, campania, tipo_marca, red, canal
-								 					 WHERE ADW_CAMPANIA = camp_id and ADW_MARCA = tma_id and adw_red = red_id and ADW_CANAL = can_id
+								 					 WHERE ADW_CAMPANIA = camp_id and adw_categoria=4 and ADW_MARCA = tma_id and adw_red = red_id and ADW_CANAL = can_id
 								 					 group by adw_id desc;";
 								 	if($result = $con->query($sql)){
 								 		while($row = $result->fetch_assoc()) //fetch_assoc() = devuelve un arreglo asociativo con el row en el que se encuentre
