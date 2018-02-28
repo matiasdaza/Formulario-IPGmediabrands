@@ -69,21 +69,9 @@
 				<!-- sidebar menu: : style can be found in sidebar.less -->
 				<ul class="sidebar-menu" data-widget="tree">
 					<li class="header">MAIN NAVIGATION</li>
-					<<li class="treeview">
+					<li class="active treeview">
 						<a href="#">
 						<i class="fa fa-dashboard"></i> <span>Dashboard</span>
-						<span class="pull-right-container">
-						<i class="fa fa-angle-left pull-right"></i>
-						</span>
-						</a>
-						<ul class="treeview-menu">
-							<li><a href="../index.html"><i class="fa fa-circle-o"></i> Dashboard v1</a></li>
-							<li><a href="../index2.html"><i class="fa fa-circle-o"></i> Dashboard v2</a></li>
-						</ul>
-					</li>
-					<li class="treeview">
-						<a href="#">
-						<i class="fa fa-dashboard"></i> <span>Campañas</span>
 						<span class="pull-right-container">
 						<i class="fa fa-angle-left pull-right"></i>
 						</span>
@@ -95,10 +83,10 @@
 							<li><a href="anuncios.php"><i class="fa fa-angle-right"></i>Anuncios</a></li>
 							<li><a href="adwords.php"><i class="fa fa-circle-o"></i> Dashboard AdWords</a></li>
 							<li><a href="AWanuncios.php"><i class="fa fa-angle-right"></i>Anuncios</a></li>
-							<li><a href="index3.html"><i class="fa fa-circle-o"></i> Dashboard OtrosMedios</a></li>
+							<li><a href=""><i class="fa fa-circle-o"></i> Dashboard OtrosMedios</a></li>
 						</ul>
 					</li>
-          <li class="active treeview">
+					<li class="treeview">
 						<a href="#">
 						<i class="fa fa-dashboard"></i> <span>Admin</span>
 						<span class="pull-right-container">
@@ -107,106 +95,82 @@
 						</a>
 						<ul class="treeview-menu">
 							<li><a href="AdminFacebook.php"><i class="fa fa-circle-o"></i> Dashboard Facebook</a></li>
-							<li class="active"><a href="AdminAdWords.php"><i class="fa fa-circle-o"></i> Dashboard AdWords</a></li>
+							<li><a href="AdminAdWords.php"><i class="fa fa-circle-o"></i> Dashboard AdWords</a></li>
 						</ul>
 					</li>
 				</ul>
 			</section>
 			<!-- /.sidebar -->
 		</aside>
-    <!-- Content Wrapper. Contains page content -->
- <div class="content-wrapper">
-   <!-- Content Header (Page header) -->
-   <section class="content-header">
-     <h1>
-        Admin
-       <small>Control Panel</small>
-     </h1>
-     <ol class="breadcrumb">
-       <li><a href="../Encargado.php"><i class="fa fa-home"></i> Home</a></li>
-       <li class="active">Admin</li>
-     </ol>
-   </section>
-   <!-- Main content -->
-   <section class="content">
-         <div class="box box-danger">
-           <div class="box-header with-border">
-             <h3 class="box-title">AdWords</h3>
-             <a href="../pdf/AdWords.php" class="btn">
-               <i  class="fa fa-download"></i> Descargar
-            </a>
-           </div>
-           <!-- /.box-header -->
-           <div class="box-body">
-             <form action="AWMostrarCampanias.php" method="POST" method="POST" role="form">
-               <!-- select -->
-               <div class="box-body">
-								 <table id="example2" class="table table-bordered table-hover">
-								 	<thead>
-								 	<tr>
-								 		<th>Campaña</th>
-								 		<th>Marca</th>
-								 		<th>Red</th>
-								 		<th>Canal</th>
-								 		<th>Ordenes</th>
-								 	</tr>
-								 	</thead>
-
-								 	<tbody>
-								 	<?php
-								 	$con = new mysqli($servidor, $usuario, $password, $bd);
-								 	if ($con->connect_errno) {
-								 		 printf("Connect failed: %s\n", $con->connect_error);
-								 		 exit();
-								  }
-								 	global $con;
-								 	$sql =  "SELECT adw_id, camp_nombre, tma_nombre, red_nombre, can_nombre, adw_ordenes
-								 					 FROM adwords, campania, tipo_marca, red, canal
-								 					 WHERE ADW_CAMPANIA = camp_id and ADW_MARCA = tma_id and adw_red = red_id and ADW_CANAL = can_id
-								 					 group by adw_id desc;";
-								 	if($result = $con->query($sql)){
-								 		while($row = $result->fetch_assoc()) //fetch_assoc() = devuelve un arreglo asociativo con el row en el que se encuentre
-								 		{
-
-								 				 echo "<tr>";
-								 				 echo "<td>", $row["camp_nombre"], "</td>";
-								 				 echo "<td>", $row["tma_nombre"],"</td>" ;
-								 				 echo "<td>", $row["red_nombre"], "</td>";
-								 				 echo "<td>", $row["can_nombre"], "</td>";
-								 				 echo "<td>", $row["adw_ordenes"], "</td>";
-								 				 echo '<td><input type="checkbox" name="idcampania" value='.$row['adw_id'].'></td>';
-								 				 echo "</tr>";
-								 			}
-								 	}
-								 	?>
-
-								 	</tbody>
-								 </table>
-           </div>
-               </div>
-               <div class="col-xs-4">
-               <button type="submit" name="enviar" class="btn btn-primary btn-block btn-flat" value=2 >Mostrar</button>
-               </div>
-
-             </form>
-           </div>
-           <!-- /.box-body -->
-         </div>
-         <!-- /.box -->
-   </section>
-   <!-- /.content -->
- </div>
- <!-- /.content-wrapper -->
-
-
-
-
- <!-- Add the sidebar's background. This div must be placed
-      immediately after the control sidebar -->
-
-
-</div>
-<!-- ./wrapper -->
+		<!-- Content Wrapper. Contains page content -->
+		<div class="content-wrapper">
+		<!-- Content Header (Page header) -->
+		<section class="content-header">
+			<h1>
+        CCU - Cervecera
+        <small>Control panel</small>
+			</h1>
+			<ol class="breadcrumb">
+				<li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+				<li class="active">Campañas</li>
+			</ol>
+		</section>
+		<?php
+			if(isset($_GET["mensaje"])) {
+				$mesaje = $_GET["mensaje"];
+				echo"<br><div class='box-body'>
+					<div class='alert alert-success alert-dismissible'>
+						<button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button>
+						<h4><i class='icon fa fa-check'></i> Se ha generado correctamente con el nombre: </h4>
+						".$mesaje."
+					</div>
+				</div>
+				<!-- /.box-body -->";
+			}
+		?>
+		<!-- Main content -->
+		<section class="content">
+			<div class="box box-primary">
+				<div class="box-header with-border">
+					<h3 class="box-title">Campañas</h3>
+				</div>
+				<!-- /.box-header -->
+				<div class="box-body">
+					<form role="form" action="crear_campania.php" method="POST" method="POST" role="form">
+						<!-- text input -->
+						<div class="form-group">
+							<label>Ingrese nombre de campaña</label>
+							<input type="text" class="form-control" placeholder="Nombre de campaña" name="nombrecampania">
+							<div class="box-body">
+								<!-- Date -->
+								<div class="form-group">
+									<label>Fecha de inicio:</label>
+									<?php
+									$fecha=date("Y")."-".date("m")."-".date("d");
+				          echo "<input type='date' name='FechaInicio'>" // min=".$fecha."
+									?>
+									<!-- /.input group -->
+								</div>
+                <!-- Date -->
+								<div class="form-group">
+									<label>Fecha de fin:</label><?php
+									$fecha=date("Y")."-".date("m")."-".date("d");
+				          echo "<input type='date' name='FechaFin'>" // min=".$fecha."
+									?>
+									<!-- /.input group -->
+								</div>
+							</div>
+              <div class="box-body">
+                <div class="col-xs-4">
+                  <button type="submit" name="enviar" class="btn btn-primary btn-block btn-flat" value="1">Crear campaña</button>
+                </div>
+              </div>
+						</div>
+					</form>
+		</section>
+		<!-- /.content -->
+		</div>
+		<!-- /.content-wrapper -->
 		<footer class="main-footer">
 		<div class="pull-right hidden-xs">
 		<b>Version</b> 2.4.0

@@ -1,9 +1,7 @@
-
-
 <?php
 	include ('../conexion/conexion.php');
 	session_start();
-	?>
+?>
 <!DOCTYPE html>
 <html>
 	<head>
@@ -69,7 +67,7 @@
 				<!-- sidebar menu: : style can be found in sidebar.less -->
 				<ul class="sidebar-menu" data-widget="tree">
 					<li class="header">MAIN NAVIGATION</li>
-					<<li class="treeview">
+					<li class="active treeview">
 						<a href="#">
 						<i class="fa fa-dashboard"></i> <span>Dashboard</span>
 						<span class="pull-right-container">
@@ -77,28 +75,16 @@
 						</span>
 						</a>
 						<ul class="treeview-menu">
-							<li><a href="../index.html"><i class="fa fa-circle-o"></i> Dashboard v1</a></li>
-							<li><a href="../index2.html"><i class="fa fa-circle-o"></i> Dashboard v2</a></li>
-						</ul>
-					</li>
-					<li class="treeview">
-						<a href="#">
-						<i class="fa fa-dashboard"></i> <span>Campañas</span>
-						<span class="pull-right-container">
-						<i class="fa fa-angle-left pull-right"></i>
-						</span>
-						</a>
-						<ul class="treeview-menu">
-							<li  class="active"><a href="campanias.php"><i class="fa fa-circle-o"></i> Campañas</a></li>
+							<li><a href="campanias.php"><i class="fa fa-circle-o"></i> Campañas</a></li>
 							<li><a href="facebook.php"><i class="fa fa-circle-o"></i> Dashboard Facebook</a></li>
-							<li><a href="conjuntoanuncios.php"><i class="fa fa-angle-right"></i>Conjunto de anuncios</a></li>
+							<li class="active"><a href="conjuntoanuncios.php"><i class="fa fa-angle-right"></i>Conjunto de anuncios</a></li>
 							<li><a href="anuncios.php"><i class="fa fa-angle-right"></i>Anuncios</a></li>
 							<li><a href="adwords.php"><i class="fa fa-circle-o"></i> Dashboard AdWords</a></li>
 							<li><a href="AWanuncios.php"><i class="fa fa-angle-right"></i>Anuncios</a></li>
-							<li><a href="index3.html"><i class="fa fa-circle-o"></i> Dashboard OtrosMedios</a></li>
+							<li><a href=""><i class="fa fa-circle-o"></i> Dashboard OtrosMedios</a></li>
 						</ul>
 					</li>
-          <li class="active treeview">
+					<li class="treeview">
 						<a href="#">
 						<i class="fa fa-dashboard"></i> <span>Admin</span>
 						<span class="pull-right-container">
@@ -107,106 +93,198 @@
 						</a>
 						<ul class="treeview-menu">
 							<li><a href="AdminFacebook.php"><i class="fa fa-circle-o"></i> Dashboard Facebook</a></li>
-							<li class="active"><a href="AdminAdWords.php"><i class="fa fa-circle-o"></i> Dashboard AdWords</a></li>
+							<li><a href="AdminAdWords.php"><i class="fa fa-circle-o"></i> Dashboard AdWords</a></li>
 						</ul>
 					</li>
 				</ul>
 			</section>
 			<!-- /.sidebar -->
 		</aside>
-    <!-- Content Wrapper. Contains page content -->
- <div class="content-wrapper">
-   <!-- Content Header (Page header) -->
-   <section class="content-header">
-     <h1>
-        Admin
-       <small>Control Panel</small>
-     </h1>
-     <ol class="breadcrumb">
-       <li><a href="../Encargado.php"><i class="fa fa-home"></i> Home</a></li>
-       <li class="active">Admin</li>
-     </ol>
-   </section>
-   <!-- Main content -->
-   <section class="content">
-         <div class="box box-danger">
-           <div class="box-header with-border">
-             <h3 class="box-title">AdWords</h3>
-             <a href="../pdf/AdWords.php" class="btn">
-               <i  class="fa fa-download"></i> Descargar
-            </a>
-           </div>
-           <!-- /.box-header -->
-           <div class="box-body">
-             <form action="AWMostrarCampanias.php" method="POST" method="POST" role="form">
-               <!-- select -->
-               <div class="box-body">
-								 <table id="example2" class="table table-bordered table-hover">
-								 	<thead>
-								 	<tr>
-								 		<th>Campaña</th>
-								 		<th>Marca</th>
-								 		<th>Red</th>
-								 		<th>Canal</th>
-								 		<th>Ordenes</th>
-								 	</tr>
-								 	</thead>
+		<!-- Content Wrapper. Contains page content -->
+		<div class="content-wrapper">
+		<!-- Content Header (Page header) -->
+		<section class="content-header">
+			<h1>
+        CCU - Cervecera
+        <small>Control panel</small>
+			</h1>
+			<ol class="breadcrumb">
+				<li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+				<li class="active">Conjunto de anuncios</li>
+			</ol>
+		</section>
+		<?php
+			if(isset($_GET["mensaje"])) {
+				$mesaje = $_GET["mensaje"];
+				echo"<br><div class='box-body'>
+					<div class='alert alert-success alert-dismissible'>
+						<button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button>
+						<h4><i class='icon fa fa-check'></i> Se ha generado correctamente con el nombre: </h4>
+						".$mesaje."
+					</div>
+				</div>
+				<!-- /.box-body -->";
+			}
+		?>
+		<!-- Main content -->
+		<section class="content">
+      <div class="box box-primary">
+				<div class="box-header with-border">
+					<h3 class="box-title">Conjunto de anuncios</h3>
+				</div>
+        <!-- /.box-header -->
+				<?php
+					 $con = new mysqli($servidor, $usuario, $password, $bd);
+					 $con->set_charset("utf8");
+						 global $con;
+						 $sql = "SELECT * FROM Facebook GROUP by fb_id desc;";
+						 $respuesta = $con -> query($sql);
+						 $filas = mysqli_num_rows($respuesta);
+					 ?>
+				<div class="box-body">
+					<form role="form" action="Addcanuncio.php" method="POST">
+						  <div class="form-group">
+                 <label>Seleccionar campaña  (Si la campaña no está creada, crearla en la pestaña "Campaña")</label>
+                 <select class="form-control" name="idcampania">
+								<option></option>
+                 <?php
+                    if($filas > 0)
+                    {
+                      while($result = $respuesta -> fetch_assoc()) //fetch_assoc() = devuelve un arreglo asociativo con el row en el que se encuentre
+                      {
+                        echo "<option value=".$result['FB_ID'].">".$result["FB_NOMBRECAMPANIA"],"</option>";
+                      }
+                    }
+                    ?>
+                 </select>
+              </div>
+						</div>
+            <!-- Rate_type -->
+            <?php
+               $con = new mysqli($servidor, $usuario, $password, $bd);
+               $con->set_charset("utf8");
+                 global $con;
+                 $sql = "SELECT * FROM rate_type;";
+                 $respuesta = $con -> query($sql);
+                 $filas = mysqli_num_rows($respuesta);
+               ?>
+            <label>Rate_type</label>
+            <div class="form-group">
+               <?php
+                  if($filas > 0)
+                  {
+                    while($result = $respuesta -> fetch_assoc()) //fetch_assoc() = devuelve un arreglo asociativo con el row en el que se encuentre
+                    {
+                      echo "<div class='radio'><label><input type='radio' name='rate_type' value='".$result['RTY_ID']."' checked>", $result["RTY_NOMBRE"], "</label></div>";
+                    }
+                  }
+                  ?>
+            </div>
 
-								 	<tbody>
-								 	<?php
-								 	$con = new mysqli($servidor, $usuario, $password, $bd);
-								 	if ($con->connect_errno) {
-								 		 printf("Connect failed: %s\n", $con->connect_error);
-								 		 exit();
-								  }
-								 	global $con;
-								 	$sql =  "SELECT adw_id, camp_nombre, tma_nombre, red_nombre, can_nombre, adw_ordenes
-								 					 FROM adwords, campania, tipo_marca, red, canal
-								 					 WHERE ADW_CAMPANIA = camp_id and ADW_MARCA = tma_id and adw_red = red_id and ADW_CANAL = can_id
-								 					 group by adw_id desc;";
-								 	if($result = $con->query($sql)){
-								 		while($row = $result->fetch_assoc()) //fetch_assoc() = devuelve un arreglo asociativo con el row en el que se encuentre
-								 		{
+            <!-- Inicio_conjunto_anuncio -->
+            <div class="form-group">
+              <label>Inicio_conjunto_anuncio:</label>
+							<?php
+							$fecha=date("Y")."-".date("m")."-".date("d");
+		          echo "<input type='date' name='Inicio_conjunto_anuncio' >" // min=".$fecha."
+							?>
 
-								 				 echo "<tr>";
-								 				 echo "<td>", $row["camp_nombre"], "</td>";
-								 				 echo "<td>", $row["tma_nombre"],"</td>" ;
-								 				 echo "<td>", $row["red_nombre"], "</td>";
-								 				 echo "<td>", $row["can_nombre"], "</td>";
-								 				 echo "<td>", $row["adw_ordenes"], "</td>";
-								 				 echo '<td><input type="checkbox" name="idcampania" value='.$row['adw_id'].'></td>';
-								 				 echo "</tr>";
-								 			}
-								 	}
-								 	?>
+              <!-- /.input group -->
+            </div>
+            <!-- Fin_conjunto_anuncio -->
+            <div class="form-group">
+              <label>Fin_conjunto_anuncio:</label>
+							<?php
+							$fecha=date("Y")."-".date("m")."-".date("d");
+		          echo "<input type='date' name='Fin_conjunto_anuncio' >" // min=".$fecha."
+							?>
+              <!-- /.input group -->
+            </div>
 
-								 	</tbody>
-								 </table>
-           </div>
-               </div>
-               <div class="col-xs-4">
-               <button type="submit" name="enviar" class="btn btn-primary btn-block btn-flat" value=2 >Mostrar</button>
-               </div>
+						<!-- Género -->
+						<?php
+							 $con = new mysqli($servidor, $usuario, $password, $bd);
+							 $con->set_charset("utf8");
+								 global $con;
+								 $sql = "SELECT * FROM GENERO;";
+								 $respuesta = $con -> query($sql);
+								 $filas = mysqli_num_rows($respuesta);
+							 ?>
+						<label>Género</label>
+						<div class="form-group">
+							 <?php
+									if($filas > 0)
+									{
+										while($result = $respuesta -> fetch_assoc()) //fetch_assoc() = devuelve un arreglo asociativo con el row en el que se encuentre
+										{
+											echo "<div class='radio'><label><input type='radio' name='genero' value='".$result['GEN_ID']."' checked>", $result["GEN_NOMBRE"], "</label></div>";
+										}
+									}
+									?>
+						</div>
+						<!-- Rango de edad -->
+            <div class="form-group">
+              <label>Seleccione el rago de edad: (13-65) </label>
+							<br><br>
+							<label>Min: </label><input type="number" name="edadmin" min="13" max="65" step="1">
+							<label>Máx: </label><input type="number" name="edadmax" min="13" max="65" step="1">
+              <!-- /.input group -->
+            </div>
 
-             </form>
-           </div>
-           <!-- /.box-body -->
-         </div>
-         <!-- /.box -->
-   </section>
-   <!-- /.content -->
- </div>
- <!-- /.content-wrapper -->
+						<!-- Segmentación -->
+            <div class="form-group">
+              <label>Segmentación: </label><br><br>
+							<textarea rows="4" cols="50" name="segmentacion"></textarea>
+            </div>
+						<!-- Rango de edad -->
+            <div class="form-group">
+              <label>Frecuencia</label>
+							<br>
+							<p>Frecuencia de anuncios: (0-9)&nbsp;<input type="number" name="frec" min="0" max="9" step="1"></p>
+							<p>Frecuencia de días: (0-7)&nbsp;<input type="number" name="frecdias" min="0" max="7" step="1"></p>
+              <!-- /.input group -->
+            </div>
+						<!-- Dispositivo -->
+            <?php
+               $con = new mysqli($servidor, $usuario, $password, $bd);
+               $con->set_charset("utf8");
+                 global $con;
+                 $sql = "SELECT * FROM Dispositivo;";
+                 $respuesta = $con -> query($sql);
+                 $filas = mysqli_num_rows($respuesta);
+               ?>
+            <label>Dispositivo</label>
+            <div class="form-group">
+               <?php
+                  if($filas > 0)
+                  {
+                    while($result = $respuesta -> fetch_assoc()) //fetch_assoc() = devuelve un arreglo asociativo con el row en el que se encuentre
+                    {
+                      echo "<div class='radio'><label><input type='radio' name='dispositivo' value='".$result['DIS_ID']."' checked>", $result["DIS_NOMBRE"], "</label></div>";
+                    }
+                  }
+                  ?>
+            </div>
+						<div class="form-group">
+							<label>Ingrese inversión</label>
+							<input type="text" class="form-control" name="inversion" placeholder="Inversión en CLP, sin puntos. Ej: 1000000" required>
+							<br>
+							<label>Identificador</label>
+							<input type="text" class="form-control" placeholder="Ingrese identificador de nombre" name="Identificador" maxlength="30">
+						</div>
+            <br>
+						<div class="box-body">
+							<div class="col-xs-4">
+								<button type="submit" name="enviar" class="btn btn-primary btn-block btn-flat" value="1">Guardar</button>
+							</div>
+						</div>
+					</div>
 
-
-
-
- <!-- Add the sidebar's background. This div must be placed
-      immediately after the control sidebar -->
-
-
-</div>
-<!-- ./wrapper -->
+			</form>
+		</section>
+		<!-- /.content -->
+		</div>
+		<!-- /.content-wrapper -->
 		<footer class="main-footer">
 		<div class="pull-right hidden-xs">
 		<b>Version</b> 2.4.0

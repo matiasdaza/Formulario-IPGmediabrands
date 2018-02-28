@@ -69,21 +69,9 @@
 				<!-- sidebar menu: : style can be found in sidebar.less -->
 				<ul class="sidebar-menu" data-widget="tree">
 					<li class="header">MAIN NAVIGATION</li>
-					<<li class="treeview">
-						<a href="#">
-						<i class="fa fa-dashboard"></i> <span>Dashboard</span>
-						<span class="pull-right-container">
-						<i class="fa fa-angle-left pull-right"></i>
-						</span>
-						</a>
-						<ul class="treeview-menu">
-							<li><a href="../index.html"><i class="fa fa-circle-o"></i> Dashboard v1</a></li>
-							<li><a href="../index2.html"><i class="fa fa-circle-o"></i> Dashboard v2</a></li>
-						</ul>
-					</li>
 					<li class="treeview">
 						<a href="#">
-						<i class="fa fa-dashboard"></i> <span>Campañas</span>
+						<i class="fa fa-dashboard"></i> <span>Dashboard</span>
 						<span class="pull-right-container">
 						<i class="fa fa-angle-left pull-right"></i>
 						</span>
@@ -95,7 +83,7 @@
 							<li><a href="anuncios.php"><i class="fa fa-angle-right"></i>Anuncios</a></li>
 							<li><a href="adwords.php"><i class="fa fa-circle-o"></i> Dashboard AdWords</a></li>
 							<li><a href="AWanuncios.php"><i class="fa fa-angle-right"></i>Anuncios</a></li>
-							<li><a href="index3.html"><i class="fa fa-circle-o"></i> Dashboard OtrosMedios</a></li>
+							<li><a href=""><i class="fa fa-circle-o"></i> Dashboard OtrosMedios</a></li>
 						</ul>
 					</li>
           <li class="active treeview">
@@ -106,8 +94,8 @@
 						</span>
 						</a>
 						<ul class="treeview-menu">
-							<li><a href="AdminFacebook.php"><i class="fa fa-circle-o"></i> Dashboard Facebook</a></li>
-							<li class="active"><a href="AdminAdWords.php"><i class="fa fa-circle-o"></i> Dashboard AdWords</a></li>
+							<li class="active"><a href="AdminFacebook.php"><i class="fa fa-circle-o"></i> Dashboard Facebook</a></li>
+							<li><a href="AdminAdWords.php"><i class="fa fa-circle-o"></i> Dashboard AdWords</a></li>
 						</ul>
 					</li>
 				</ul>
@@ -131,58 +119,66 @@
    <section class="content">
          <div class="box box-danger">
            <div class="box-header with-border">
-             <h3 class="box-title">AdWords</h3>
+             <h3 class="box-title">Facebook</h3>
              <a href="../pdf/AdWords.php" class="btn">
                <i  class="fa fa-download"></i> Descargar
             </a>
            </div>
            <!-- /.box-header -->
            <div class="box-body">
-             <form action="AWMostrarCampanias.php" method="POST" method="POST" role="form">
+             <form action="MostrarCampanias.php" method="POST" method="POST" role="form">
                <!-- select -->
                <div class="box-body">
-								 <table id="example2" class="table table-bordered table-hover">
-								 	<thead>
-								 	<tr>
-								 		<th>Campaña</th>
-								 		<th>Marca</th>
-								 		<th>Red</th>
-								 		<th>Canal</th>
-								 		<th>Ordenes</th>
-								 	</tr>
-								 	</thead>
+             <table id="example2" class="table table-bordered table-hover">
+               <thead>
+               <tr>
+                 <th>PLataforma</th>
+                 <th>Marca</th>
+                 <th>Campaña</th>
+                 <th>Objetivos</th>
+                 <th>Tipo_compra</th>
+                 <th>Ordenes</th>
+                 <th>Mostrar</th>
+               </tr>
+               </thead>
 
-								 	<tbody>
-								 	<?php
-								 	$con = new mysqli($servidor, $usuario, $password, $bd);
-								 	if ($con->connect_errno) {
-								 		 printf("Connect failed: %s\n", $con->connect_error);
-								 		 exit();
-								  }
-								 	global $con;
-								 	$sql =  "SELECT adw_id, camp_nombre, tma_nombre, red_nombre, can_nombre, adw_ordenes
-								 					 FROM adwords, campania, tipo_marca, red, canal
-								 					 WHERE ADW_CAMPANIA = camp_id and ADW_MARCA = tma_id and adw_red = red_id and ADW_CANAL = can_id
-								 					 group by adw_id desc;";
-								 	if($result = $con->query($sql)){
-								 		while($row = $result->fetch_assoc()) //fetch_assoc() = devuelve un arreglo asociativo con el row en el que se encuentre
-								 		{
+               <tbody>
+               <?php
+               $con = new mysqli($servidor, $usuario, $password, $bd);
+               if ($con->connect_errno) {
+                  printf("Connect failed: %s\n", $con->connect_error);
+                  exit();
+              }
+               global $con;
+               $sql =  "SELECT fb_id, tpl_nombre,tma_nombre, camp_nombre, tob_nombre, tco_nombre, fb_ordenes
+                        FROM facebook, campania, tipo_plataforma, tipo_marca, tipo_objetivo, tipo_compra
+                        where fb_plataforma = tpl_id
+                        and fb_marca = tma_id
+                        and fb_campania = camp_id
+                        and fb_objetivo = tob_id
+                        and fb_compra = tco_id
+												group by fb_id desc;";
+               if($result = $con->query($sql)){
+                 while($row = $result->fetch_assoc()) //fetch_assoc() = devuelve un arreglo asociativo con el row en el que se encuentre
+                 {
 
-								 				 echo "<tr>";
-								 				 echo "<td>", $row["camp_nombre"], "</td>";
-								 				 echo "<td>", $row["tma_nombre"],"</td>" ;
-								 				 echo "<td>", $row["red_nombre"], "</td>";
-								 				 echo "<td>", $row["can_nombre"], "</td>";
-								 				 echo "<td>", $row["adw_ordenes"], "</td>";
-								 				 echo '<td><input type="checkbox" name="idcampania" value='.$row['adw_id'].'></td>';
-								 				 echo "</tr>";
-								 			}
-								 	}
-								 	?>
+                      echo "<tr>";
+                      echo "<td>", $row["tpl_nombre"], "</td>";
+                      echo "<td>", $row["tma_nombre"],"</td>" ;
+                      echo "<td>", $row["camp_nombre"], "</td>";
+                      echo "<td>", $row["tob_nombre"],"</td>" ;
+                      echo "<td>", $row["tco_nombre"], "</td>";
+                      echo "<td>", $row["fb_ordenes"],"</td>" ;
+                      echo '<td><input type="checkbox" name="mostrar" value='.$row['fb_id'].'></td>';
+                      echo "</tr>";
+                   }
+               }
+               ?>
 
-								 	</tbody>
-								 </table>
+               </tbody>
+             </table>
            </div>
+
                </div>
                <div class="col-xs-4">
                <button type="submit" name="enviar" class="btn btn-primary btn-block btn-flat" value=2 >Mostrar</button>
