@@ -143,7 +143,7 @@
 						 global $con;
 						 $sql = "SELECT coa_id, coa_nombre, fb_nombrecampania
 						 				FROM conjunto_anuncios, facebook
-										where coa_facebook = fb_id
+										where coa_facebook = fb_id and COA_CATEGORIA = 4
 										GROUP by coa_id desc;";
 						 $respuesta = $con -> query($sql);
 						 $filas = mysqli_num_rows($respuesta);

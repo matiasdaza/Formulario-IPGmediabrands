@@ -7,6 +7,7 @@ if (isset($_POST['enviar']))
         $nombrecampania=$_POST['nombrecampania'];
         $FechaInicio=$_POST['FechaInicio'];
         $FechaFin=$_POST['FechaFin'];
+        $categoria=4; // Viña y Pisquera tiene id 4
 
         $con = new mysqli($servidor, $usuario, $password, $bd);
         $con->set_charset("utf8");
@@ -40,8 +41,8 @@ if (isset($_POST['enviar']))
 
         $nombre= "{$nombrecampania} | {$FechaInicioCorta} | {$FechaFinCorta}";
 
-        $sql = "INSERT INTO campania(CAMP_NOMBRE,	CAMP_FINICIO,	CAMP_FFIN, CAMP_NOMBRECAMPANIA)
-                    VALUES  ('$nombrecampania','$FechaInicio','$FechaFin', '$nombre')";
+        $sql = "INSERT INTO campania(CAMP_NOMBRE,	CAMP_FINICIO,	CAMP_FFIN, CAMP_NOMBRECAMPANIA, CAMP_CATEGORIA)
+                    VALUES  ('$nombrecampania','$FechaInicio','$FechaFin', '$nombre', $categoria)";
                      //camp_id es auto increment, por lo que no se agrega
         echo $sql;
         if($con -> query($sql)) //$con -> query($sql) = True or false
