@@ -148,9 +148,9 @@
                   exit();
               }
                global $con;
-               $sql =  "SELECT adw_id, camp_nombre, tma_nombre, red_nombre, can_nombre, adw_ordenes
-												FROM adwords, campania, tipo_marca, red, canal
-												WHERE ADW_CAMPANIA = camp_id and ADW_MARCA = tma_id and adw_red = red_id and ADW_CANAL = can_id
+               $sql =  "SELECT adw_id, camp_nombre, ctma_nombre, red_nombre, can_nombre, adw_ordenes
+												FROM adwords, campania, ctipo_marca, red, canal
+												WHERE ADW_CAMPANIA = camp_id and ADW_MARCA = ctma_id and adw_red = red_id and ADW_CANAL = can_id
 												group by adw_id desc;";
                if($result = $con->query($sql)){
                  while($row = $result->fetch_assoc()) //fetch_assoc() = devuelve un arreglo asociativo con el row en el que se encuentre
@@ -158,7 +158,7 @@
 
                       echo "<tr>";
 											echo "<td>", $row["camp_nombre"], "</td>";
-                      echo "<td>", $row["tma_nombre"],"</td>" ;
+                      echo "<td>", $row["ctma_nombre"],"</td>" ;
 											echo "<td>", $row["red_nombre"], "</td>";
                       echo "<td>", $row["can_nombre"], "</td>";
                       echo "<td>", $row["adw_ordenes"], "</td>";

@@ -187,7 +187,7 @@
                $con = new mysqli($servidor, $usuario, $password, $bd);
                $con->set_charset("utf8");
                  global $con;
-                 $sql = "SELECT * FROM tipo_marca;";
+                 $sql = "SELECT * FROM ctipo_marca;";
                  $respuesta = $con -> query($sql);
                  $filas = mysqli_num_rows($respuesta);
                ?>
@@ -200,7 +200,7 @@
                   {
                     while($result = $respuesta -> fetch_assoc()) //fetch_assoc() = devuelve un arreglo asociativo con el row en el que se encuentre
                     {
-                      echo "<option value=".$result['TMA_ID'].">".$result["TMA_NOMBRE"],"</option>";
+                      echo "<option value=".$result['CTMA_ID'].">".$result["CTMA_NOMBRE"],"</option>";
                     }
                   }
                   ?>

@@ -150,10 +150,10 @@
                   exit();
               }
                global $con;
-               $sql =  "SELECT fb_id, tpl_nombre,tma_nombre, camp_nombre, tob_nombre, tco_nombre, fb_ordenes
-                        FROM facebook, campania, tipo_plataforma, tipo_marca, tipo_objetivo, tipo_compra
+               $sql =  "SELECT fb_id, tpl_nombre,ctma_nombre, camp_nombre, tob_nombre, tco_nombre, fb_ordenes
+                        FROM facebook, campania, tipo_plataforma, ctipo_marca, tipo_objetivo, tipo_compra
                         where fb_plataforma = tpl_id
-                        and fb_marca = tma_id
+                        and fb_marca = ctma_id
                         and fb_campania = camp_id
                         and fb_objetivo = tob_id
                         and fb_compra = tco_id
@@ -164,7 +164,7 @@
 
                       echo "<tr>";
                       echo "<td>", $row["tpl_nombre"], "</td>";
-                      echo "<td>", $row["tma_nombre"],"</td>" ;
+                      echo "<td>", $row["ctma_nombre"],"</td>" ;
                       echo "<td>", $row["camp_nombre"], "</td>";
                       echo "<td>", $row["tob_nombre"],"</td>" ;
                       echo "<td>", $row["tco_nombre"], "</td>";
