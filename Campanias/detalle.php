@@ -90,7 +90,7 @@ session_start();
           </a>
           <ul class="treeview-menu">
             <li><a href="AdminFacebook.php"><i class="fa fa-circle-o"></i> Dashboard Facebook</a></li>
-            <li class="active"><a href="AdminAdWords.php"><i class="fa fa-circle-o"></i> Dashboard AdWords</a></li>
+            <li><a href="AdminAdWords.php"><i class="fa fa-circle-o"></i> Dashboard AdWords</a></li>
           </ul>
         </li>
       </ul>
