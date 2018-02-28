@@ -33,7 +33,7 @@ if (isset($_POST['enviar']))
         }else {
           $Identificador=$_POST['Identificador'];
         }
-
+        $categoria=2; // Cervecera tiene id 2
 
         $con = new mysqli($servidor, $usuario, $password, $bd);
         $con->set_charset("utf8");
@@ -58,9 +58,9 @@ if (isset($_POST['enviar']))
 
         $sql = "INSERT INTO adwords(ADW_CAMPANIA, ADW_MARCA, ADW_RED, ADW_CANAL, ADW_ORDENES,
                             ADW_NOMBRE, ADW_RTY, ADW_GENERO, ADW_REDAD, ADW_SEGMENTACION,
-                            ADW_FREC, ADW_FRECDIAS, ADW_DISPOSITIVO, ADW_INVERSION)
+                            ADW_FREC, ADW_FRECDIAS, ADW_DISPOSITIVO, ADW_INVERSION, ADW_CATEGORIA)
                     VALUES  ($idcampania,$idmarca,$idred, $idcanal, '$ordenes', '$salida', $rate_type,
-                       $genero, '$rangoEdad', '$segmentacion', $frec, $frecdias, $dispositivo, $inversion)";
+                       $genero, '$rangoEdad', '$segmentacion', $frec, $frecdias, $dispositivo, $inversion, $categoria)";
                      //camp_id es auto increment, por lo que no se agrega
 
         if($con -> query($sql)) //$con -> query($sql) = True or false
