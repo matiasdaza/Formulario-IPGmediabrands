@@ -34,6 +34,8 @@ if (isset($_POST['enviar']))
           $Identificador=$_POST['Identificador'];
         }
         $categoria=1; // Aguas tiene id 2
+        $fecha=date("Y")."-".date("m")."-".date("d")." ".date("H").":".date("i").":".date("s");
+
 
         $con = new mysqli($servidor, $usuario, $password, $bd);
         $con->set_charset("utf8");
@@ -52,8 +54,8 @@ if (isset($_POST['enviar']))
             }
         }
         echo $salida;
-        $sql = "INSERT INTO CONJUNTO_ANUNCIOS(COA_FACEBOOK, COA_RATETYPE, COA_IDATE , COA_FDATE , COA_GENERO , COA_EDADMIN,	COA_EDADMAX, COA_SEGMENTACION, COA_FREC, COA_FRECDIAS, COA_DISPOSITIVO, COA_INVERSION, COA_NOMBRE, COA_CATEGORIA)
-                    VALUES  ($idcampania,$rate_type,'$Inicio_conjunto_anuncio','$Fin_conjunto_anuncio',$genero,$edadmin,$edadmax,'$segmentacion', $frec, $frecdias, $dispositivo, $inversion, '$salida', $categoria)";
+        $sql = "INSERT INTO CONJUNTO_ANUNCIOS(COA_FACEBOOK, COA_RATETYPE, COA_IDATE , COA_FDATE , COA_GENERO , COA_EDADMIN,	COA_EDADMAX, COA_SEGMENTACION, COA_FREC, COA_FRECDIAS, COA_DISPOSITIVO, COA_INVERSION, COA_NOMBRE, COA_CATEGORIA, COA_FECHACREACION)
+                    VALUES  ($idcampania,$rate_type,'$Inicio_conjunto_anuncio','$Fin_conjunto_anuncio',$genero,$edadmin,$edadmax,'$segmentacion', $frec, $frecdias, $dispositivo, $inversion, '$salida', $categoria, '$fecha')";
                      //camp_id es auto increment, por lo que no se agrega
         if($con -> query($sql)) //$con -> query($sql) = True or false
         {
