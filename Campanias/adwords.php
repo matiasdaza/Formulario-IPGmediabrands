@@ -137,7 +137,7 @@
 					 $con = new mysqli($servidor, $usuario, $password, $bd);
 					 $con->set_charset("utf8");
 						 global $con;
-						 $sql = "SELECT * FROM campania group by camp_id desc;";
+						 $sql = "SELECT * FROM campania where CAMP_CATEGORIA = 4 group by camp_id desc;";
 						 $respuesta = $con -> query($sql);
 						 $filas = mysqli_num_rows($respuesta);
 					 ?>
