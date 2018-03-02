@@ -11,6 +11,7 @@ if (isset($_POST['enviar']))
         $idtcompra=$_POST['idtcompra'];
         $ordenes=$_POST['ordenes'];
         $categoria=2; // Cervecera tiene id 2
+        $fecha=date("Y")."-".date("m")."-".date("d")." ".date("H").":".date("i").":".date("s");
 
         $con = new mysqli($servidor, $usuario, $password, $bd);
         $con->set_charset("utf8");
@@ -34,8 +35,8 @@ if (isset($_POST['enviar']))
             }
         }
         echo $salida;
-        $sql = "INSERT INTO facebook(FB_CAMPANIA, FB_PLATAFORMA, FB_MARCA, FB_OBJETIVO, FB_COMPRA, FB_ORDENES, FB_NOMBRECAMPANIA, fb_categoria)
-                    VALUES  ($idcampania,$idplataforma,$idmarca,$idobjetivo, $idtcompra, '$ordenes', '$salida', $categoria)";
+        $sql = "INSERT INTO facebook(FB_CAMPANIA, FB_PLATAFORMA, FB_MARCA, FB_OBJETIVO, FB_COMPRA, FB_ORDENES, FB_NOMBRECAMPANIA, FB_CATEGORIA, FB_FECHACREACION)
+                    VALUES  ($idcampania,$idplataforma,$idmarca,$idobjetivo, $idtcompra, '$ordenes', '$salida', $categoria, '$fecha')";
                      //camp_id es auto increment, por lo que no se agrega
 
         if($con -> query($sql)) //$con -> query($sql) = True or false

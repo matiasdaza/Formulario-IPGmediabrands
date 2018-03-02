@@ -178,7 +178,7 @@
                   {
                     while($result = $respuesta -> fetch_assoc()) //fetch_assoc() = devuelve un arreglo asociativo con el row en el que se encuentre
                     {
-                      echo "<option value=".$result['tma_ID'].">".$result["TMA_NOMBRE"],"</option>";
+                      echo "<option value=".$result['TMA_ID'].">".$result["TMA_NOMBRE"],"</option>";
                     }
                   }
                   ?>
