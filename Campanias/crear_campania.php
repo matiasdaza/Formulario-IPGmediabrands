@@ -44,7 +44,7 @@ if (isset($_POST['enviar']))
         $sql = "INSERT INTO campania(CAMP_NOMBRE,	CAMP_FINICIO,	CAMP_FFIN, CAMP_NOMBRECAMPANIA, CAMP_CATEGORIA)
                     VALUES  ('$nombrecampania','$FechaInicio','$FechaFin', '$nombre', $categoria)";
                      //camp_id es auto increment, por lo que no se agrega
-        echo $sql;
+        
         if($con -> query($sql)) //$con -> query($sql) = True or false
         {
             header("location: campanias.php?mensaje=$nombre");
