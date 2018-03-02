@@ -39,10 +39,10 @@ if (isset($_POST['enviar']))
         $con->set_charset("utf8");
         global $con;
         //echo "<p>",$hola=date("Y").date("m").date("d"),"</p>";
-        $sql = "SELECT concat('Chile | ',atma_nombre,' | ',camp_nombre,' | ',red_nombre,' | ',can_nombre,' | ', '$Identificador') as nombrecampania
-                FROM campania, atipo_marca, tipo_objetivo, canal, red
+        $sql = "SELECT concat('Chile | ',tma_nombre,' | ',camp_nombre,' | ',red_nombre,' | ',can_nombre,' | ', '$Identificador') as nombrecampania
+                FROM campania, tipo_marca, tipo_objetivo, canal, red
                 WHERE CAMP_ID = '$idcampania'
-                and atma_id= '$idmarca'
+                and tma_id= '$idmarca'
                 and red_id= '$idred'
                 and can_id= '$idcanal'";
         $respuesta = $con -> query($sql);

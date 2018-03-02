@@ -164,10 +164,10 @@ session_start();
                exit();
            }
             global $con;
-            $sql = "SELECT adw_id, camp_nombre, ctma_nombre, red_nombre, can_nombre, tob_nombre,
+            $sql = "SELECT adw_id, camp_nombre, tma_nombre, red_nombre, can_nombre, tob_nombre,
             adw_ordenes, rty_nombre, adw_idate, adw_fdate, gen_nombre, adw_redad, adw_segmentacion, adw_frec, adw_frecdias, dis_nombre, adw_inversion
-                     FROM adwords, campania, ctipo_marca, red, canal, tipo_objetivo, Rate_type, genero, dispositivo
-                     WHERE adw_id = $fbid and ADW_CAMPANIA = camp_id and ADW_MARCA = ctma_id and adw_red = red_id and ADW_CANAL = can_id and ADW_OBJETIVO = tob_id
+                     FROM adwords, campania, tipo_marca, red, canal, tipo_objetivo, Rate_type, genero, dispositivo
+                     WHERE adw_id = $fbid and ADW_CAMPANIA = camp_id and ADW_MARCA = tma_id and adw_red = red_id and ADW_CANAL = can_id and ADW_OBJETIVO = tob_id
                      and adw_rty = rty_id and adw_genero and gen_id and adw_dispositivo = dis_id
                      group by adw_id desc;";
             if($result = $con->query($sql)){
@@ -210,7 +210,7 @@ session_start();
                    echo "<tr>";
                    echo "<td>", $row["adw_id"],"</td>" ;
                    echo "<td>", $row["camp_nombre"],"</td>" ;
-                   echo "<td>", $row["ctma_nombre"], "</td>";
+                   echo "<td>", $row["tma_nombre"], "</td>";
                    echo "<td>", $row["red_nombre"], "</td>";
                    echo "<td>", $row["can_nombre"], "</td>";
                    echo "<td>", $row["tob_nombre"], "</td>";

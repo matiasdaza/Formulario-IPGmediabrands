@@ -16,11 +16,11 @@ if (isset($_POST['enviar']))
         $con->set_charset("utf8");
         global $con;
         //echo "<p>",$hola=date("Y").date("m").date("d"),"</p>";
-        $sql = "SELECT concat(tpl_nombre,' | Chile | ', atma_nombre,' | ',camp_nombrecampania,' | ',tob_nombre,' | ',tco_nombre,' | ','$ordenes') as nombrecampania
-                FROM campania, tipo_plataforma, atipo_marca, tipo_objetivo, tipo_compra
+        $sql = "SELECT concat(tpl_nombre,' | Chile | ', tma_nombre,' | ',camp_nombrecampania,' | ',tob_nombre,' | ',tco_nombre,' | ','$ordenes') as nombrecampania
+                FROM campania, tipo_plataforma, tipo_marca, tipo_objetivo, tipo_compra
                 WHERE CAMP_ID = '$idcampania'
                 and tpl_id= '$idplataforma'
-                and atma_id= '$idmarca'
+                and tma_id= '$idmarca'
                 and tob_id= '$idobjetivo'
                 and tco_id= '$idtcompra'";
         echo $sql."<br>";
