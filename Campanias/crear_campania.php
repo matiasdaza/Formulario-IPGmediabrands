@@ -8,6 +8,7 @@ if (isset($_POST['enviar']))
         $FechaInicio=$_POST['FechaInicio'];
         $FechaFin=$_POST['FechaFin'];
         $categoria=4; // Viña y Pisquera tiene id 4
+        $fecha=date("Y")."-".date("m")."-".date("d")." ".date("H").":".date("i").":".date("s");
 
         $con = new mysqli($servidor, $usuario, $password, $bd);
         $con->set_charset("utf8");
@@ -41,10 +42,10 @@ if (isset($_POST['enviar']))
 
         $nombre= "{$nombrecampania} | {$FechaInicioCorta} | {$FechaFinCorta}";
 
-        $sql = "INSERT INTO campania(CAMP_NOMBRE,	CAMP_FINICIO,	CAMP_FFIN, CAMP_NOMBRECAMPANIA, CAMP_CATEGORIA)
-                    VALUES  ('$nombrecampania','$FechaInicio','$FechaFin', '$nombre', $categoria)";
+        $sql = "INSERT INTO campania(CAMP_NOMBRE,	CAMP_FINICIO,	CAMP_FFIN, CAMP_NOMBRECAMPANIA, CAMP_CATEGORIA, CAMP_FECHACREACION)
+                    VALUES  ('$nombrecampania','$FechaInicio','$FechaFin', '$nombre', $categoria, '$fecha')";
                      //camp_id es auto increment, por lo que no se agrega
-        
+
         if($con -> query($sql)) //$con -> query($sql) = True or false
         {
             header("location: campanias.php?mensaje=$nombre");
