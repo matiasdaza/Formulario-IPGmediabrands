@@ -140,7 +140,7 @@
 					 $con = new mysqli($servidor, $usuario, $password, $bd);
 					 $con->set_charset("utf8");
 						 global $con;
-						 $sql = "SELECT * FROM AdWords where ADW_CATEGORIA = 1;";
+						 $sql = "SELECT * FROM AdWords where ADW_CATEGORIA = 3;";
 						 $respuesta = $con -> query($sql);
 						 $filas = mysqli_num_rows($respuesta);
 					 ?>

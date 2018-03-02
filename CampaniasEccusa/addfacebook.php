@@ -10,7 +10,7 @@ if (isset($_POST['enviar']))
         $idobjetivo=$_POST['idobjetivo'];
         $idtcompra=$_POST['idtcompra'];
         $ordenes=$_POST['ordenes'];
-        $categoria=1; // Aguas tiene id 2
+        $categoria=3; // Eccusa tiene id 3
 
         $con = new mysqli($servidor, $usuario, $password, $bd);
         $con->set_charset("utf8");

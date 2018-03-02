@@ -7,7 +7,7 @@ if (isset($_POST['enviar']))
         $nombrecampania=$_POST['nombrecampania'];
         $FechaInicio=$_POST['FechaInicio'];
         $FechaFin=$_POST['FechaFin'];
-        $categoria=1; // Aguas tiene id 2
+        $categoria=3; // Eccusa tiene id 3
         $fecha=date("Y")."-".date("m")."-".date("d")." ".date("H").":".date("i").":".date("s");
 
         $con = new mysqli($servidor, $usuario, $password, $bd);

@@ -33,7 +33,7 @@ if (isset($_POST['enviar']))
         }else {
           $Identificador=$_POST['Identificador'];
         }
-        $categoria=1; // Aguas tiene id 2
+        $categoria=3; // Eccusa tiene id 3
 
         $con = new mysqli($servidor, $usuario, $password, $bd);
         $con->set_charset("utf8");
