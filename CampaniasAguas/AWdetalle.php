@@ -90,7 +90,7 @@ session_start();
           </a>
           <ul class="treeview-menu">
             <li><a href="AdminFacebook.php"><i class="fa fa-circle-o"></i> Dashboard Facebook</a></li>
-            <li class="active"><a href="AdminAdWords.php"><i class="fa fa-circle-o"></i> Dashboard AdWords</a></li>
+            <li><a href="AdminAdWords.php"><i class="fa fa-circle-o"></i> Dashboard AdWords</a></li>
           </ul>
         </li>
       </ul>
@@ -158,41 +158,35 @@ session_start();
         <label>Detalle de la campaña: </label>
 
           <?php
+          if(isset($_GET["idcampania"])) {
+            $fbid = $_GET["idcampania"];
             $con = new mysqli($servidor, $usuario, $password, $bd);
             if ($con->connect_errno) {
                printf("Connect failed: %s\n", $con->connect_error);
                exit();
            }
             global $con;
-            $sql = "SELECT adw_id, camp_nombre, tma_nombre, red_nombre, can_nombre, tob_nombre,
-            adw_ordenes, rty_nombre, adw_idate, adw_fdate, gen_nombre, adw_redad, adw_segmentacion, adw_frec, adw_frecdias, dis_nombre, adw_inversion
-                     FROM adwords, campania, tipo_marca, red, canal, tipo_objetivo, Rate_type, genero, dispositivo
-                     WHERE adw_id = $fbid and ADW_CAMPANIA = camp_id and ADW_MARCA = tma_id and adw_red = red_id and ADW_CANAL = can_id and ADW_OBJETIVO = tob_id
-                     and adw_rty = rty_id and adw_genero and gen_id and adw_dispositivo = dis_id
-                     group by adw_id desc;";
+            $sql = "SELECT tma_nombre, red_nombre, can_nombre, rty_nombre, gen_nombre, adw_redad, adw_segmentacion, ADW_FREC, ADW_FRECDIAS, dis_nombre, ADW_INVERSION
+from adwords, tipo_marca, red, canal, rate_type, genero, dispositivo
+where adw_id = $fbid and ADW_MARCA = tma_id and adw_red = red_id and ADW_CANAL = can_id and ADW_RTY = rty_id and adw_genero = gen_id and ADW_DISPOSITIVO = dis_id";
+
             if($result = $con->query($sql)){
               while($row = $result->fetch_assoc()) //fetch_assoc() = devuelve un arreglo asociativo con el row en el que se encuentre
               {
-                echo "<table id='example2' class='table table-bordered table-hover' border='1'>";
+                echo "<table id='example2' class='table table-bordered table-hover'>";
                 echo "<thead>";
                 echo "<tr>";
-                  echo "<th>ID</th>";
-                  echo "<th>Campaña</th>";
                   echo "<th>Marca</th>";
                   echo "<th>Red</th>";
                   echo "<th>Canal</th>";
-                  echo "<th>Objetivos</th>";
-                  echo "<th>Ordenes</th>";
                   echo "<th>Rate_type</th>";
-                  echo "<th>Ini_conjunto_anun: </th>";
-                  echo "<th>Fin_conjunto_anun: </th>";
-                  echo "<th>Género: </th>";
-                  echo "<th>Rango de edad: </th>";
-                  echo "<th>Segmentación: </th>";
-                  echo "<th>Frecuencia: </th>";
-                  echo "<th>Frecuencia por días: </th>";
-                  echo "<th>Dispositivo: </th>";
-                  echo "<th>Inversión: </th>";
+                  echo "<th>Género</th>";
+                  echo "<th>Rango de edad</th>";
+                  echo "<th>Segmentación</th>";
+                  echo "<th>Frecuencia de anuncios</th>";
+                  echo "<th>Frecuencia en días</th>";
+                  echo "<th>Dispositivo</th>";
+                  echo "<th>Inversion</th>";
                 echo "</tr>";
                 echo "</thead>";
 
@@ -208,33 +202,27 @@ session_start();
                   echo "<td></td>" ;
                   echo "<td></td>" ;
                    echo "<tr>";
-                   echo "<td>", $row["adw_id"],"</td>" ;
-                   echo "<td>", $row["camp_nombre"],"</td>" ;
-                   echo "<td>", $row["tma_nombre"], "</td>";
-                   echo "<td>", $row["red_nombre"], "</td>";
+                   echo "<td>", $row["tma_nombre"],"</td>" ;
+                   echo "<td>", $row["red_nombre"],"</td>" ;
                    echo "<td>", $row["can_nombre"], "</td>";
-                   echo "<td>", $row["tob_nombre"], "</td>";
-                   echo "<td>", $row["adw_ordenes"], "</td>";
                    echo "<td>", $row["rty_nombre"], "</td>";
-                   echo "<td>", $row["adw_idate"], "</td>";
-                   echo "<td>", $row["adw_fdate"], "</td>";
                    echo "<td>", $row["gen_nombre"], "</td>";
                    echo "<td>", $row["adw_redad"], "</td>";
                    echo "<td>", $row["adw_segmentacion"], "</td>";
-                   echo "<td>", $row["adw_frec"], "</td>";
-                   echo "<td>", $row["adw_frecdias"], "</td>";
+                   echo "<td>", $row["ADW_FREC"], "</td>";
+                   echo "<td>", $row["ADW_FRECDIAS"], "</td>";
                    echo "<td>", $row["dis_nombre"], "</td>";
-                   echo "<td>", $row["adw_inversion"], "</td>";
+                   echo "<td>", $row["ADW_INVERSION"], "</td>";
 
                    echo "</tr>";
                    echo "</tbody>
                  </table>";
                 }
             }
-          ?>
+          }?>
 
 
-        <br><br>
+      <br>
 
         <?php
        $con = new mysqli($servidor, $usuario, $password, $bd);
