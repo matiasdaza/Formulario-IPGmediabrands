@@ -119,7 +119,7 @@ session_start();
     <section class="content">
       <div class="box box-danger">
         <div class="box-header with-border">
-          <h3 class="box-title">Campaña:</h3>
+          <h3><span class='label label-success'>Campaña</span></h3>
         </div>
         <?php
         $fbid = $_GET["idcampania"];
@@ -221,7 +221,8 @@ where adw_id = $fbid and ADW_MARCA = tma_id and adw_red = red_id and ADW_CANAL =
             }
           }?>
 
-        <br>
+
+      <br>
 
         <?php
        $con = new mysqli($servidor, $usuario, $password, $bd);
@@ -241,7 +242,7 @@ where adw_id = $fbid and ADW_MARCA = tma_id and adw_red = red_id and ADW_CANAL =
         echo "Tiene: ".$salida." Anuncios";
         echo "<br><br>";
         ?>
-        <label>Anuncios: </label>
+        <h3><span class='label label-danger'>Anuncios</span></h3>
         <?php
 
             $con = new mysqli($servidor, $usuario, $password, $bd);
