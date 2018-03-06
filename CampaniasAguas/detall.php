@@ -90,7 +90,7 @@ session_start();
           </a>
           <ul class="treeview-menu">
             <li><a href="AdminFacebook.php"><i class="fa fa-circle-o"></i> Dashboard Facebook</a></li>
-            <li class="active"><a href="AdminAdWords.php"><i class="fa fa-circle-o"></i> Dashboard AdWords</a></li>
+            <li><a href="AdminAdWords.php"><i class="fa fa-circle-o"></i> Dashboard AdWords</a></li>
           </ul>
         </li>
       </ul>
@@ -119,7 +119,7 @@ session_start();
     <section class="content">
       <div class="box box-danger">
         <div class="box-header with-border">
-          <h3 class="box-title">Campaña:</h3>
+          <h3><span class='label label-success'>Campaña</span></h3>
         </div>
       <?php
      $fbid = $_GET["fbid"];
@@ -160,7 +160,6 @@ session_start();
       echo "Tiene: ".$salida." conjuntos de anuncios";
       echo "<br><br>";
       ?>
-      <label>Conjunto de anuncios: </label>
 
         <?php
         if(isset($_GET["fbid"])) {
@@ -178,6 +177,7 @@ session_start();
           if($result = $con->query($sql)){
             while($row = $result->fetch_assoc()) //fetch_assoc() = devuelve un arreglo asociativo con el row en el que se encuentre
             {
+              echo "<h3><span class='label label-primary'>Conjunto de Anuncios  </span></h3>";
               echo "<h3>",$row["coa_nombre"],"</h3>";
               echo "<table id='example2' class='table table-bordered table-hover'>";
               echo "<thead>";
@@ -209,7 +209,8 @@ session_start();
                 echo "<td></td>" ;
                 echo "<td></td>" ;
                  echo "<tr>";
-                 echo "<td>", $row["coa_id"],"</td>" ;
+                 echo "<td>", $row["coa_id"],"</td>";
+                 $coa_id = $row["coa_id"];
                  echo "<td>", $row["rty_nombre"],"</td>" ;
                  echo "<td>", $row["coa_idate"], "</td>";
                  echo "<td>", $row["coa_fdate"], "</td>";
@@ -221,10 +222,55 @@ session_start();
                  echo "<td>", $row["COA_FRECDIAS"], "</td>";
                  echo "<td>", $row["dis_nombre"], "</td>";
                  echo "<td>", $row["COA_INVERSION"], "</td>";
-
                  echo "</tr>";
                  echo "</tbody>
                </table>";
+               echo "<h3><span class='label label-danger'>Anuncios</span></h3>";
+                 $con2 = new mysqli($servidor, $usuario, $password, $bd);
+                 if ($con2->connect_errno) {
+                    printf("Connect failed: %s\n", $con2->connect_error);
+                    exit();
+                }
+                 global $con2;
+                 $sql2 = "SELECT DISTINCT anu_id, anu_nombre, tfo_nombre, aut_nombre, vle_nombre, anu_inidate, anu_findate
+                 from anuncios, conjunto_anuncios, tipo_formato, ad_unit_type, video_length
+                 where anu_facebook = $coa_id and anu_facebook = coa_id and anu_formatotema = tfo_id and anu_aut = aut_id and anu_videolength = vle_id group by anu_id desc ";
+                 if($result2 = $con2->query($sql2)){
+                   while($row2 = $result2->fetch_assoc()) //fetch_assoc() = devuelve un arreglo asociativo con el row en el que se encuentre
+                   {
+                     echo "<h3>",$row2["anu_nombre"],"</h3>";
+                     echo "<table id='example2' class='table table-bordered table-hover ' border='1'>";
+                     echo "<thead>";
+                     echo "<tr>";
+                       echo "<th>ID</th>";
+                       echo "<th>Formato tema</th>";
+                       echo "<th>Ad unit type</th>";
+                       echo "<th>Video length</th>";
+                       echo "<th>Inicio anuncios</th>";
+                       echo "<th>Fin Anuncios</th>";
+                     echo "</tr>";
+                     echo "</thead>";
+
+                     echo "<tbody>";
+                     echo "<tr>";
+                       echo "<td></td>" ;
+                       echo "<td></td>" ;
+                       echo "<td></td>" ;
+                       echo "<td></td>" ;
+                       echo "<td></td>" ;
+                        echo "<tr>";
+                        echo "<td>", $row2["anu_id"],"</td>" ;
+                        echo "<td>", $row2["tfo_nombre"],"</td>" ;
+                        echo "<td>", $row2["aut_nombre"], "</td>";
+                        echo "<td>", $row2["vle_nombre"], "</td>";
+                        echo "<td>", $row2["anu_inidate"], "</td>";
+                        echo "<td>", $row2["anu_findate"], "</td>";
+                        echo "</tr>";
+                        echo "</tbody>
+                      </table>";
+                   }
+                 }
+
               }
           }
         }?>
@@ -232,79 +278,6 @@ session_start();
 
       <br><br>
 
-      <?php
-     $fbid = $_GET["fbid"];
-     $con = new mysqli($servidor, $usuario, $password, $bd);
-     $con->set_charset("utf8");
-     global $con;
-     $sql = "SELECT count(coa_id) as count
-            from anuncios, conjunto_anuncios
-            where anu_facebook = coa_id and coa_facebook = $fbid";
-     $respuesta = $con -> query($sql);
-     $filas = mysqli_num_rows($respuesta);
-     if($filas > 0)
-     {
-         while($result = $respuesta -> fetch_assoc()) //fetch_assoc() = devuelve un arreglo asociativo con el row en el que se encuentre
-       {
-             $salida =  $result['count'];
-         }
-     }
-
-      echo "Tiene: ".$salida." Anuncios";
-      echo "<br><br>";
-      ?>
-      <label>Anuncios: </label>
-      <?php
-        if(isset($_GET["fbid"])) {
-          $fbid = $_GET["fbid"];
-          $con = new mysqli($servidor, $usuario, $password, $bd);
-          if ($con->connect_errno) {
-             printf("Connect failed: %s\n", $con->connect_error);
-             exit();
-         }
-          global $con;
-          $sql = "SELECT DISTINCT anu_id, anu_nombre, tfo_nombre, aut_nombre, vle_nombre, anu_inidate, anu_findate
-  from anuncios, conjunto_anuncios, tipo_formato, ad_unit_type, video_length
-  where anu_facebook = coa_id and coa_facebook = $fbid and anu_formatotema = tfo_id and anu_aut = aut_id and anu_videolength = vle_id
-  group by anu_id desc;";
-          if($result = $con->query($sql)){
-            while($row = $result->fetch_assoc()) //fetch_assoc() = devuelve un arreglo asociativo con el row en el que se encuentre
-            {
-
-              echo "<h3>",$row["anu_nombre"],"</h3>";
-              echo "<table id='example2' class='table table-bordered table-hover ' border='1'>";
-              echo "<thead>";
-              echo "<tr>";
-                echo "<th>ID</th>";
-                echo "<th>Formato tema</th>";
-                echo "<th>Ad unit type</th>";
-                echo "<th>Video length</th>";
-                echo "<th>Inicio anuncios</th>";
-                echo "<th>Fin Anuncios</th>";
-              echo "</tr>";
-              echo "</thead>";
-
-              echo "<tbody>";
-              echo "<tr>";
-                echo "<td></td>" ;
-                echo "<td></td>" ;
-                echo "<td></td>" ;
-                echo "<td></td>" ;
-                echo "<td></td>" ;
-                 echo "<tr>";
-                 echo "<td>", $row["anu_id"],"</td>" ;
-                 echo "<td>", $row["tfo_nombre"],"</td>" ;
-                 echo "<td>", $row["aut_nombre"], "</td>";
-                 echo "<td>", $row["vle_nombre"], "</td>";
-                 echo "<td>", $row["anu_inidate"], "</td>";
-                 echo "<td>", $row["anu_findate"], "</td>";
-                 echo "</tr>";
-                 echo "</tbody>
-               </table>";
-              }
-          }
-        }?>
-        <br><br>
       </div>
     </section>
     <!-- /.content -->
