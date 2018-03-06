@@ -40,7 +40,7 @@ if (isset($_POST['enviar']))
             }
         }
 
-        $nombre= "{$nombrecampania} | {$FechaInicioCorta} | {$FechaFinCorta}";
+        $nombre= "{$nombrecampania} - {$FechaInicioCorta} - {$FechaFinCorta}";
 
         $sql = "INSERT INTO campania(CAMP_NOMBRE,	CAMP_FINICIO,	CAMP_FFIN, CAMP_NOMBRECAMPANIA, CAMP_CATEGORIA, CAMP_FECHACREACION)
                     VALUES  ('$nombrecampania','$FechaInicio','$FechaFin', '$nombre', $categoria, '$fecha')";
