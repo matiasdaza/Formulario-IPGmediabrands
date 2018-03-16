@@ -249,14 +249,7 @@
           <!-- /.input group -->
         </div>
         <!-- Fin_anuncio -->
-        <div class="form-group">
-          <label>Fin_anuncio:</label>
-					<?php
-					$fecha=date("Y")."-".date("m")."-".date("d");
-          echo "<input type='date' name='Fin_anuncio' >" // min=".$fecha."
-					?>
-          <!-- /.input group -->
-        </div>
+        
 				<!--
 				<label>Ingrese inversión</label>
 				<input type="text" class="form-control" name="inversion" placeholder="Inversión en CLP, sin puntos. Ej: 1000000">-->

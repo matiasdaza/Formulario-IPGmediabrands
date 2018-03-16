@@ -29,7 +29,7 @@ if (isset($_POST['enviar']))
           $inversion=$_POST['inversion'];
         }
         if(empty($_POST['Identificador'])){
-          $Identificador='NULL';
+          $Identificador='';
         }else {
           $Identificador=$_POST['Identificador'];
         }
@@ -40,8 +40,28 @@ if (isset($_POST['enviar']))
         $con = new mysqli($servidor, $usuario, $password, $bd);
         $con->set_charset("utf8");
         global $con;
+        //Country|Campaign global|RateType|Fecha Inicio_Fecha Fin|Inversion|||||
         //echo "<p>",$hola=date("Y").date("m").date("d"),"</p>";
-        $sql = "SELECT concat(rty_nombre,' | ','$Inicio_conjunto_anuncio',' | ','$Fin_conjunto_anuncio',' | ','$Identificador') as nombreconjanuncio
+        $sql = "SELECT camp_nombrecampania, tob_nombre from campania, facebook, tipo_objetivo where fb_campania = camp_id and fb_objetivo = tob_id and fb_id = $idcampania";
+        $respuesta = $con -> query($sql);
+        $filas = mysqli_num_rows($respuesta);
+        if($filas > 0)
+        {
+            while($result = $respuesta -> fetch_assoc()) //fetch_assoc() = devuelve un arreglo asociativo con el row en el que se encuentre
+          {
+                $campania = $result['camp_nombrecampania'];
+                $objetivo = $result['tob_nombre'];
+            }
+        }
+        echo $campania;
+        $fecha=date("Y")."-".date("m")."-".date("d")." ".date("H").":".date("i").":".date("s");
+
+        $con = new mysqli($servidor, $usuario, $password, $bd);
+        $con->set_charset("utf8");
+        global $con;
+        //País|Campaña global| Objetivo |RateType|Fecha Inicio_Fecha Fin|Inversion|||||
+        //echo "<p>",$hola=date("Y").date("m").date("d"),"</p>";
+        $sql = "SELECT concat('Chile | ','$campania',' | ', '$objetivo',' | ', rty_nombre,' | ','$Inicio_conjunto_anuncio',' | ','$Fin_conjunto_anuncio',' | ','$Inversion','| | | | | ','$Identificador') as nombreconjanuncio
                 FROM rate_type
                 WHERE rty_id = '$rate_type'";
         $respuesta = $con -> query($sql);

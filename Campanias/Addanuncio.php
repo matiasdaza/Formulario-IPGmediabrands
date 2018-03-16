@@ -32,9 +32,9 @@ if (isset($_POST['enviar']))
         $con->set_charset("utf8");
         global $con;
         //echo "<p>",$hola=date("Y").date("m").date("d"),"</p>";
-        $sql = "SELECT coa_facebook
-                from conjunto_anuncios, anuncios
-                where anu_facebook = coa_id and anu_id = $idcampania;";
+        $sql = "SELECT COA_FACEBOOK, rty_nombre
+                FROM conjunto_anuncios, rate_type
+                WHERE coa_id = $idcampania and COA_RATETYPE = rty_id";
         //echo $sql;
         $respuesta = $con -> query($sql);
         $filas = mysqli_num_rows($respuesta);
@@ -42,7 +42,8 @@ if (isset($_POST['enviar']))
         {
             while($result = $respuesta -> fetch_assoc()) //fetch_assoc() = devuelve un arreglo asociativo con el row en el que se encuentre
           {
-                $mostrar =  $result['coa_facebook'];
+                $fb =  $result['COA_FACEBOOK'];
+                $rate_type =  $result['rty_nombre'];
 
             }
         }
@@ -51,7 +52,28 @@ if (isset($_POST['enviar']))
         $con->set_charset("utf8");
         global $con;
         //echo "<p>",$hola=date("Y").date("m").date("d"),"</p>";
-        $sql = "SELECT concat(tfo_nombre,' | ',AUT_nombre,' | ',VLE_nombre,' | ','$Inicio_anuncio',' | ','$Fin_anuncio',' | ','$Identificador') as nombrecampania
+        $sql = "SELECT tob_nombre
+                FROM facebook, tipo_objetivo
+                WHERE fb_id = $fb and fb_objetivo = tob_id";
+        echo $sql;
+        $respuesta = $con -> query($sql);
+        $filas = mysqli_num_rows($respuesta);
+        if($filas > 0)
+        {
+            while($result = $respuesta -> fetch_assoc()) //fetch_assoc() = devuelve un arreglo asociativo con el row en el que se encuentre
+          {
+                $objetivo =  $result['tob_nombre'];
+
+            }
+        }
+
+
+        $con = new mysqli($servidor, $usuario, $password, $bd);
+        $con->set_charset("utf8");
+        global $con;
+        //echo "<p>",$hola=date("Y").date("m").date("d"),"</p>";
+        //AdUnitType | Objetivo | rate_type | video_length | Inicio_anuncio - Fin_anuncio - Tipo formato - texto libre
+        $sql = "SELECT concat(AUT_nombre,' | ','$objetivo',' | ','$rate_type',' | ',VLE_nombre,' | ','$Inicio_anuncio',' - ',tfo_nombre,' - ','$Identificador') as nombrecampania
                 FROM tipo_formato, ad_unit_type, video_length
                 WHERE tfo_id = '$formatotema'
                 and AUT_id= '$Ad_unit_type'
@@ -82,6 +104,7 @@ if (isset($_POST['enviar']))
         {
             echo 'Error: '.mysqli_error($con);
         }
+
 
 }
 ?>
