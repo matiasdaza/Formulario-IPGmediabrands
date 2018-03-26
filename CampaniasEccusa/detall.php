@@ -119,7 +119,7 @@ session_start();
     <section class="content">
       <div class="box box-danger">
         <div class="box-header with-border">
-          <h3><span class='label label-success'>Campaña</span></h3>
+          <h3><span class='label label-success'>Campaña</span> ID: <?php $fbid = $_GET["fbid"]; echo $fbid ?></h3>
         </div>
       <?php
      $fbid = $_GET["fbid"];
