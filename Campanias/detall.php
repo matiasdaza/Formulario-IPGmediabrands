@@ -160,7 +160,7 @@ session_start();
       echo "Tiene: ".$salida." conjuntos de anuncios";
       echo "<br><br>";
       ?>
-
+      <form action='update.php' method='POST' method='POST' role='form'>
         <?php
         if(isset($_GET["fbid"])) {
           $fbid = $_GET["fbid"];
@@ -184,8 +184,8 @@ session_start();
               echo "<tr>";
                 echo "<th>ID</th>";
                 echo "<th>Rate type</th>";
-                echo "<th>Inicio_conjunto_anuncio</th>";
-                echo "<th>Fin_conjunto_anuncio</th>";
+                echo "<th>Inicio conjunto anuncio</th>";
+                echo "<th>Fin conjunto anuncio</th>";
                 echo "<th>Género</th>";
                 echo "<th>Edad mínima</th>";
                 echo "<th>Edad máxima</th>";
@@ -194,6 +194,7 @@ session_start();
                 echo "<th>Frecuencia en días</th>";
                 echo "<th>Dispositivo</th>";
                 echo "<th>Inversion</th>";
+                echo "<th>Editar</th>";
               echo "</tr>";
               echo "</thead>";
 
@@ -222,9 +223,14 @@ session_start();
                  echo "<td>", $row["COA_FRECDIAS"], "</td>";
                  echo "<td>", $row["dis_nombre"], "</td>";
                  echo "<td>", $row["COA_INVERSION"], "</td>";
+                 echo '<td><input type="checkbox" name="mostrar" value='.$coa_id.'></td>';
                  echo "</tr>";
                  echo "</tbody>
                </table>";
+               ?>
+
+
+               <?php
                echo "<h3><span class='label label-danger'>Anuncios</span></h3>";
                  $con2 = new mysqli($servidor, $usuario, $password, $bd);
                  if ($con2->connect_errno) {
@@ -273,7 +279,11 @@ session_start();
 
               }
           }
-        }?>
+        }?><div class="col-xs-4">
+        <button type="submit" name="enviar" class="btn btn-primary btn-block btn-flat" value=1 >Editar Conjunto de Anuncios</button>
+        </div><br>
+      </form>
+
 
 
       <br><br>
