@@ -223,7 +223,7 @@ session_start();
                  echo "<td>", $row["COA_FRECDIAS"], "</td>";
                  echo "<td>", $row["dis_nombre"], "</td>";
                  echo "<td>", $row["COA_INVERSION"], "</td>";
-                 echo '<td><input type="checkbox" name="mostrar" value='.$coa_id.'></td>';
+                 echo '<td><input type="radio" name="mostrar" value='.$coa_id.'></td>';
                  echo "</tr>";
                  echo "</tbody>
                </table>";
@@ -273,7 +273,7 @@ session_start();
                         echo "<td>", $row2["vle_nombre"], "</td>";
                         echo "<td>", $row2["anu_inidate"], "</td>";
                         echo "<td>", $row2["anu_findate"], "</td>";
-                        echo '<td><input type="checkbox" name="mostrar" value='.$anu_id.'></td>';
+                        echo '<td><input type="radio" name="mostrar" value='.$anu_id.'></td>';
                         echo "</tr>";
                         echo "</tbody>
                       </table>";
