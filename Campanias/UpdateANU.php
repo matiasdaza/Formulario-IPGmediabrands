@@ -1,9 +1,7 @@
-
-
 <?php
 	include ('../conexion/conexion.php');
 	session_start();
-	?>
+?>
 <!DOCTYPE html>
 <html>
 	<head>
@@ -69,24 +67,24 @@
 				<!-- sidebar menu: : style can be found in sidebar.less -->
 				<ul class="sidebar-menu" data-widget="tree">
 					<li class="header">MAIN NAVIGATION</li>
-					<li class="treeview">
+					<li class="active treeview">
 						<a href="#">
-						<i class="fa fa-dashboard"></i> <span>Dashboard</span>
+						<i class="fa fa-dashboard"></i> <span>Campañas</span>
 						<span class="pull-right-container">
 						<i class="fa fa-angle-left pull-right"></i>
 						</span>
 						</a>
 						<ul class="treeview-menu">
-							<li  class="active"><a href="campanias.php"><i class="fa fa-circle-o"></i> Campañas</a></li>
+							<li><a href="campanias.php"><i class="fa fa-circle-o"></i> Campañas</a></li>
 							<li><a href="facebook.php"><i class="fa fa-circle-o"></i> Dashboard Facebook</a></li>
-							<li><a href="conjuntoanuncios.php"><i class="fa fa-angle-right"></i>Conjunto de anuncios</a></li>
+							<li class="active"><a href="conjuntoanuncios.php"><i class="fa fa-angle-right"></i>Conjunto de anuncios</a></li>
 							<li><a href="anuncios.php"><i class="fa fa-angle-right"></i>Anuncios</a></li>
 							<li><a href="adwords.php"><i class="fa fa-circle-o"></i> Dashboard AdWords</a></li>
 							<li><a href="AWanuncios.php"><i class="fa fa-angle-right"></i>Anuncios</a></li>
 							<li><a href=""><i class="fa fa-circle-o"></i> Dashboard OtrosMedios</a></li>
 						</ul>
 					</li>
-          <li class="active treeview">
+					<li class="treeview">
 						<a href="#">
 						<i class="fa fa-dashboard"></i> <span>Admin</span>
 						<span class="pull-right-container">
@@ -94,7 +92,7 @@
 						</span>
 						</a>
 						<ul class="treeview-menu">
-							<li class="active"><a href="AdminFacebook.php"><i class="fa fa-circle-o"></i> Dashboard Facebook</a></li>
+							<li><a href="AdminFacebook.php"><i class="fa fa-circle-o"></i> Dashboard Facebook</a></li>
 							<li><a href="AdminAdWords.php"><i class="fa fa-circle-o"></i> Dashboard AdWords</a></li>
 						</ul>
 					</li>
@@ -102,121 +100,71 @@
 			</section>
 			<!-- /.sidebar -->
 		</aside>
-    <!-- Content Wrapper. Contains page content -->
- <div class="content-wrapper">
-   <!-- Content Header (Page header) -->
-   <section class="content-header">
-     <h1>
-        Admin
-       <small>Control Panel</small>
-     </h1>
-     <ol class="breadcrumb">
-       <li><a href="../Encargado.php"><i class="fa fa-home"></i> Home</a></li>
-       <li class="active">Admin</li>
-     </ol>
-   </section>
-	 <?php
-		 if(isset($_GET["mensaje"])) {
-			 $mesaje = $_GET["mensaje"];
-			 echo"<br><div class='box-body'>
-				 <div class='alert alert-success alert-dismissible'>
-					 <button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button>
-					 <h4><i class='icon fa fa-check'></i> Se ha actualizado: </h4>
-					 ".$mesaje."
-				 </div>
-			 </div>
-			 <!-- /.box-body -->";
-		 }
-	 ?>
-   <!-- Main content -->
-   <section class="content">
-         <div class="box box-danger">
-           <div class="box-header with-border">
-             <h3 class="box-title">Facebook</h3>
-             <a href="../pdf/AdWords.php" class="btn">
-               <i  class="fa fa-download"></i> Descargar
-            </a>
-           </div>
-           <!-- /.box-header -->
-           <div class="box-body">
-             <form action="MostrarCampanias.php" method="POST" method="POST" role="form">
-               <!-- select -->
-               <div class="box-body">
-             <table id="example2" class="table table-bordered table-hover">
-               <thead>
-               <tr>
-                 <th>PLataforma</th>
-                 <th>Marca</th>
-                 <th>Campaña</th>
-                 <th>Objetivos</th>
-                 <th>Tipo_compra</th>
-                 <th>Ordenes</th>
-                 <th>Mostrar</th>
-               </tr>
-               </thead>
+		<!-- Content Wrapper. Contains page content -->
+		<div class="content-wrapper">
+		<!-- Content Header (Page header) -->
+		<section class="content-header">
+			<h1>
+        CCU - Viña | Pisquera
+        <small>Control panel</small>
+			</h1>
+			<ol class="breadcrumb">
+				<li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+				<li class="active">Conjunto de anuncios</li>
+			</ol>
+		</section>
+		<?php
+			if(isset($_GET["id"])) {
+        $id=$_GET["id"];
+        $con = new mysqli($servidor, $usuario, $password, $bd);
+        $con->set_charset("utf8");
+        global $con;
+        $sql = "SELECT * FROM ANUNCIOS WHERE ANU_ID = $id;";
+        $respuesta = $con -> query($sql);
+        $filas = mysqli_num_rows($respuesta);
+        if($filas > 0)
+        {
+            while($resultinicial = $respuesta -> fetch_assoc()) //fetch_assoc() = devuelve un arreglo asociativo con el row en el que se encuentre
+          {
+                $naming =  $resultinicial['ANU_NOMBRE'];
 
-               <tbody>
-               <?php
-               $con = new mysqli($servidor, $usuario, $password, $bd);
-               if ($con->connect_errno) {
-                  printf("Connect failed: %s\n", $con->connect_error);
-                  exit();
-              }
-               global $con;
-               $sql =  "SELECT fb_id, tpl_nombre,tma_nombre, camp_nombre, tob_nombre, tco_nombre, fb_ordenes
-                        FROM facebook, campania, tipo_plataforma, tipo_marca, tipo_objetivo, tipo_compra
-                        where fb_categoria = 2
-												and fb_plataforma = tpl_id
-                        and fb_marca = tma_id
-                        and fb_campania = camp_id
-                        and fb_objetivo = tob_id
-                        and fb_compra = tco_id
-												group by fb_id desc;";
-               if($result = $con->query($sql)){
-                 while($row = $result->fetch_assoc()) //fetch_assoc() = devuelve un arreglo asociativo con el row en el que se encuentre
-                 {
+            }
+        }
+				echo"<br><div class='box-body'>
+					<div class='alert alert-success alert-dismissible'>
+						<button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button>
+						<h4><i class='icon fa fa-check'></i>Editar el Conjunto de Anuncios: </h4> id:
+						".$id."<br>Naming: ".$naming."
+					</div>
+				</div>
+				<!-- /.box-body -->";
+			}
+		?>
+		<!-- Main content -->
+		<section class="content">
+      <div class="box box-primary">
+        <form action='MUpdateANU.php' method='POST' method='POST' role='form'>
+        <br>
+        <!-- Inicio_conjunto_anuncio -->
+        <div class="form-group">
+          <label>Nueva fecha de Inicio de anuncio:</label>
+          <?php
+          $fecha=date("Y")."-".date("m")."-".date("d");
+          echo "<input type='date' name='Inicio_anuncio' >" // min=".$fecha."
+          ?>
 
-                      echo "<tr>";
-                      echo "<td>", $row["tpl_nombre"], "</td>";
-                      echo "<td>", $row["tma_nombre"],"</td>" ;
-                      echo "<td>", $row["camp_nombre"], "</td>";
-                      echo "<td>", $row["tob_nombre"],"</td>" ;
-                      echo "<td>", $row["tco_nombre"], "</td>";
-                      echo "<td>", $row["fb_ordenes"],"</td>" ;
-                      echo '<td><input type="checkbox" name="mostrar" value='.$row['fb_id'].'></td>';
-                      echo "</tr>";
-                   }
-               }
-               ?>
+          <!-- /.input group -->
+        </div>
+        <div class="col-xs-4">
+        <button type="submit" name="enviar" class="btn btn-primary btn-block btn-flat" <?php echo "value=".$id; ?> >Editar Conjunto de Anuncios</button>
+        </div><br>
+      </form>
+			</div>
 
-               </tbody>
-             </table>
-           </div>
-
-               </div>
-               <div class="col-xs-4">
-               <button type="submit" name="enviar" class="btn btn-primary btn-block btn-flat" value=2 >Mostrar</button>
-               </div>
-
-             </form>
-           </div>
-           <!-- /.box-body -->
-         </div>
-         <!-- /.box -->
-   </section>
-   <!-- /.content -->
- </div>
- <!-- /.content-wrapper -->
-
-
-
-
- <!-- Add the sidebar's background. This div must be placed
-      immediately after the control sidebar -->
-
-
-</div>
-<!-- ./wrapper -->
+		</section>
+		<!-- /.content -->
+		</div>
+		<!-- /.content-wrapper -->
 		<footer class="main-footer">
 		<div class="pull-right hidden-xs">
 		<b>Version</b> 2.4.0

@@ -58,7 +58,7 @@ if (isset($_POST['enviar']))
         $con = new mysqli($servidor, $usuario, $password, $bd);
         $con->set_charset("utf8");
         global $con;
-        //País|Campaña global| Objetivo |RateType|Fecha Inicio_Fecha Fin|Inversion|||||
+        //País|Campaña global| Objetivo |RateType|Fecha Inicio_Fecha Fin|Inversion||||| Identificador
         //echo "<p>",$hola=date("Y").date("m").date("d"),"</p>";
         $sql = "SELECT concat('Chile | ','$campania',' | ', '$objetivo',' | ', rty_nombre,' | ','$Inicio_conjunto_anuncio',' | ','$Fin_conjunto_anuncio',' | ','$Inversion','| | | | | ','$Identificador') as nombreconjanuncio
                 FROM rate_type

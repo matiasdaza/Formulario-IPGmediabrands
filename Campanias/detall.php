@@ -254,6 +254,7 @@ session_start();
                        echo "<th>Video length</th>";
                        echo "<th>Inicio anuncios</th>";
                        echo "<th>Fin Anuncios</th>";
+                       echo "<th>Editar</th>";
                      echo "</tr>";
                      echo "</thead>";
 
@@ -266,11 +267,13 @@ session_start();
                        echo "<td></td>" ;
                         echo "<tr>";
                         echo "<td>", $row2["anu_id"],"</td>" ;
+                        $anu_id = $row2["anu_id"];
                         echo "<td>", $row2["tfo_nombre"],"</td>" ;
                         echo "<td>", $row2["aut_nombre"], "</td>";
                         echo "<td>", $row2["vle_nombre"], "</td>";
                         echo "<td>", $row2["anu_inidate"], "</td>";
                         echo "<td>", $row2["anu_findate"], "</td>";
+                        echo '<td><input type="checkbox" name="mostrar" value='.$anu_id.'></td>';
                         echo "</tr>";
                         echo "</tbody>
                       </table>";
@@ -280,7 +283,10 @@ session_start();
               }
           }
         }?><div class="col-xs-4">
+
         <button type="submit" name="enviar" class="btn btn-primary btn-block btn-flat" value=1 >Editar Conjunto de Anuncios</button>
+        <button type="submit" name="enviar" class="btn btn-primary btn-block btn-flat" value=2 >Editar Anuncios</button>
+
         </div><br>
       </form>
 
