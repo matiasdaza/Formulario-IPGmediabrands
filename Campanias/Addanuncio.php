@@ -14,7 +14,12 @@ if (isset($_POST['enviar']))
           $video_length=$_POST['video_length'];
         }
         $Inicio_anuncio=$_POST['Inicio_anuncio'];
-        $Fin_anuncio=$_POST['Fin_anuncio'];
+        //$Fin_anuncio=$_POST['Fin_anuncio'];
+        if(empty($_POST['Fin_anuncio'])){
+            $Fin_anuncio='';
+        }else {
+          $Fin_anuncio=$_POST['Fin_anuncio'];
+        }
         if(empty($_POST['Identificador'])){
           $Identificador='';
         }else {
@@ -25,8 +30,13 @@ if (isset($_POST['enviar']))
         }else {
           $inversion=$_POST['inversion'];
         }
+        if(empty($_POST['link'])){
+          $link='';
+        }else {
+          $link=$_POST['link'];
+        }
 
-        echo $idcampania;
+        //echo $idcampania;
 
         $con = new mysqli($servidor, $usuario, $password, $bd);
         $con->set_charset("utf8");
@@ -55,7 +65,7 @@ if (isset($_POST['enviar']))
         $sql = "SELECT tob_nombre
                 FROM facebook, tipo_objetivo
                 WHERE fb_id = $fb and fb_objetivo = tob_id";
-        echo $sql;
+        //echo $sql;
         $respuesta = $con -> query($sql);
         $filas = mysqli_num_rows($respuesta);
         if($filas > 0)
@@ -90,19 +100,19 @@ if (isset($_POST['enviar']))
             }
         }
 
-        $sql = "INSERT INTO anuncios(ANU_FACEBOOK, ANU_FORMATOTEMA, ANU_AUT, ANU_VIDEOLENGTH, ANU_INIDATE, ANU_FINDATE, ANU_NOMBRE, ANU_INVERSION)
-                    VALUES  ($idcampania, $formatotema, $Ad_unit_type, $video_length, '$Inicio_anuncio', '$Fin_anuncio', '$salida', $inversion)";
+        $sql = "INSERT INTO anuncios(ANU_FACEBOOK, ANU_FORMATOTEMA, ANU_AUT, ANU_VIDEOLENGTH, ANU_INIDATE, ANU_FINDATE, ANU_INVERSION, ANU_LINK, ANU_NOMBRE)
+                    VALUES  ($idcampania, $formatotema, $Ad_unit_type, $video_length, '$Inicio_anuncio', '$Fin_anuncio',$inversion, '$link', '$salida')";
                      //camp_id es auto increment, por lo que no se agrega
         echo $sql;
         if($con -> query($sql)) //$con -> query($sql) = True or false
         {
-            echo $mostrar;
+            //echo $mostrar;
             header("location: anuncios.php?mensaje=$salida");
 
         }
         else
         {
-            echo 'Error: '.mysqli_error($con);
+            echo '<br> Error: '.mysqli_error($con);
         }
 
 

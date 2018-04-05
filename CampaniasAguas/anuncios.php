@@ -249,9 +249,8 @@
           <!-- /.input group -->
         </div>
         <!-- Fin_anuncio -->
-				<!--
-				<label>Ingrese inversión</label>
-				<input type="text" class="form-control" name="inversion" placeholder="Inversión en CLP, sin puntos. Ej: 1000000">-->
+				<label>Ingrese el link del anuncio</label>
+				<input type="text" class="form-control" name="link">
 				<br>
 				<label>Identificador</label>
 				<input type="text" class="form-control" placeholder="Ingrese identificador de nombre" name="Identificador" maxlength="30">
