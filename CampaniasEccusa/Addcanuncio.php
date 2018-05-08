@@ -61,7 +61,7 @@ if (isset($_POST['enviar']))
         global $con;
         //País|Campaña global| Objetivo |RateType|Fecha Inicio_Fecha Fin|Inversion|||||
         //echo "<p>",$hola=date("Y").date("m").date("d"),"</p>";
-        $sql = "SELECT concat('Chile | ','$campania',' | ', '$objetivo',' | ', rty_nombre,' | ','$Inicio_conjunto_anuncio',' | ','$Fin_conjunto_anuncio',' | ','$Inversion','| | | | | ','$Identificador') as nombreconjanuncio
+        $sql = "SELECT concat('Chile | ','$campania',' | ', '$objetivo',' | ', rty_nombre,' | ','$Inicio_conjunto_anuncio',' | ','$Fin_conjunto_anuncio',' | ','$Inversion','| | | | | ','$edadmin','-', '$edadmax',',', '$Identificador') as nombreconjanuncio
                 FROM rate_type
                 WHERE rty_id = '$rate_type'";
         $respuesta = $con -> query($sql);
