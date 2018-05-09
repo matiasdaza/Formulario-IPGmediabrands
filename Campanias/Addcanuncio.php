@@ -9,6 +9,15 @@ if (isset($_POST['enviar']))
         $Inicio_conjunto_anuncio=$_POST['Inicio_conjunto_anuncio'];
         $Fin_conjunto_anuncio=$_POST['Fin_conjunto_anuncio'];
         $genero=$_POST['genero'];
+
+        if($genero == 1){
+          $genabr = 'F';
+        }elseif ($genero == 2) {
+          $genabr = 'H';
+        }else{
+          $genabr = 'T';
+        }
+        echo "genero: ".$genabr;
         $edadmin=$_POST['edadmin'];
         $edadmax=$_POST['edadmax'];
         $segmentacion=$_POST['segmentacion'];
@@ -60,7 +69,7 @@ if (isset($_POST['enviar']))
         global $con;
         //País|Campaña global| Objetivo |RateType|Fecha Inicio_Fecha Fin|Inversion||||| Identificador
         //echo "<p>",$hola=date("Y").date("m").date("d"),"</p>";
-        $sql = "SELECT concat('Chile | ','$campania',' | ', '$objetivo',' | ', rty_nombre,' | ','$Inicio_conjunto_anuncio',' | ','$Fin_conjunto_anuncio',' | ','$Inversion','| | | | | ', '$edadmin','-', '$edadmax',',', '$Identificador') as nombreconjanuncio
+        $sql = "SELECT concat('Chile | ','$campania',' | ', '$objetivo',' | ', rty_nombre,' | ','$Inicio_conjunto_anuncio',' | ','$Fin_conjunto_anuncio',' | ','$Inversion','| | | | | ','$genabr','$edadmin','-', '$edadmax',',', '$Identificador') as nombreconjanuncio
                 FROM rate_type
                 WHERE rty_id = '$rate_type'";
         $respuesta = $con -> query($sql);
