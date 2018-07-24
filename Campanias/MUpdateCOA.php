@@ -63,7 +63,7 @@
 	$RateType = $nombreCortado[3]; // rate_type
 	$Identificador = $nombreCortado[11]; // campo libre
 
-	$nombreFinal = $Pais."|".$Campania."|".$Objetivo."|".$RateType."| ".$Inicio_conjunto_anuncio." | ".$Fin_conjunto_anuncio." | ".$inversion." | | | | |".$Identificador;
+	$nombreFinal = $Pais."|".$Campania."|".$Objetivo."|".$RateType."| ".$Inicio_conjunto_anuncio." | ".$Fin_conjunto_anuncio." | | | | | |".$Identificador;
 	//echo $nombreFinal."<br>";
 	//FIN TEST
 
